@@ -223,6 +223,13 @@
             100% { transform: scale(1); filter: brightness(1); }
         }
 
+        /* Theme Menu Active State */
+        .theme-active {
+            background: rgba(255,255,255,0.15) !important;
+            font-weight: bold;
+            border-left: 3px solid var(--accent-primary);
+        }
+
         /* --- EXISTING STYLES --- */
         .drop-zone { min-height: 150px; border-radius: 1rem; transition: background 0.3s; }
         .drop-zone.drag-over { background: rgba(255,255,255,0.05); border: 2px dashed var(--accent-primary); transform: scale(1.01); }
@@ -360,7 +367,7 @@
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-4">
                 <!-- Dynamic Emoji Container with Premium Style -->
-                <div id="dynamic-icon" onclick="changeHeaderIcon()" class="premium-icon w-10 h-10 rounded-full flex items-center justify-center font-bold text-xl cursor-pointer select-none">
+                <div id="dynamic-icon" onclick="changeHeaderIcon(); audio.playClick();" class="premium-icon w-10 h-10 rounded-full flex items-center justify-center font-bold text-xl cursor-pointer select-none">
                     🚀
                 </div>
                 <div>
@@ -377,26 +384,37 @@
             </div>
             
             <div class="flex items-center gap-3">
+                <!-- Sound Toggle -->
+                <button onclick="toggleSound()" id="sound-btn" class="text-gray-400 hover:text-white p-2 rounded-lg hover:bg-white/5 transition-colors" title="Toggle Sound FX">
+                    <i class="fa-solid fa-volume-high"></i>
+                </button>
+                
+                <!-- Voice Toggle -->
+                <button onclick="toggleVoice()" id="voice-btn" class="text-gray-400 hover:text-white p-2 rounded-lg hover:bg-white/5 transition-colors" title="Toggle Voice Coach">
+                    <i class="fa-solid fa-headset"></i>
+                </button>
+
                 <!-- Clickable Theme Menu -->
                 <div class="relative">
-                    <button onclick="toggleThemeMenu(event)" class="text-cma-muted hover:text-white p-2 rounded-lg hover:bg-white/5"><i class="fa-solid fa-palette"></i></button>
-                    <div id="theme-menu" class="absolute right-0 mt-2 w-48 glass-panel rounded-xl p-2 hidden z-50 transform origin-top-right transition-all duration-200">
+                    <button onclick="toggleThemeMenu(event); audio.playClick();" class="text-cma-muted hover:text-white p-2 rounded-lg hover:bg-white/5"><i class="fa-solid fa-palette"></i></button>
+                    <!-- Optimized Menu: Max height, overflow, and z-index for mobile -->
+                    <div id="theme-menu" class="absolute right-0 mt-2 w-56 glass-panel rounded-xl p-2 hidden z-[60] transform origin-top-right transition-all duration-200 max-h-[60vh] overflow-y-auto overscroll-contain">
                         <div class="text-[10px] uppercase tracking-widest text-cma-muted px-2 py-1 mb-1">Study Mode</div>
-                        <button onclick="setTheme('default')" class="block w-full text-left px-3 py-2 text-xs rounded hover:bg-white/10 text-amber-200 transition-colors">Deep Focus</button>
-                        <button onclick="setTheme('midnight')" class="block w-full text-left px-3 py-2 text-xs rounded hover:bg-white/10 text-gray-300 transition-colors">Night Owl</button>
-                        <button onclick="setTheme('coffee')" class="block w-full text-left px-3 py-2 text-xs rounded hover:bg-white/10 text-[#d4a373] transition-colors">Espresso Flow</button>
-                        <button onclick="setTheme('cyberpunk')" class="block w-full text-left px-3 py-2 text-xs rounded hover:bg-white/10 text-[#22d3ee] transition-colors">Cyber Sprint</button>
+                        <button onclick="setTheme('default')" data-theme-id="default" class="block w-full text-left px-3 py-3 text-xs rounded hover:bg-white/10 text-amber-200 transition-colors flex justify-between items-center mb-1">Deep Focus</button>
+                        <button onclick="setTheme('midnight')" data-theme-id="midnight" class="block w-full text-left px-3 py-3 text-xs rounded hover:bg-white/10 text-gray-300 transition-colors flex justify-between items-center mb-1">Night Owl</button>
+                        <button onclick="setTheme('coffee')" data-theme-id="coffee" class="block w-full text-left px-3 py-3 text-xs rounded hover:bg-white/10 text-[#d4a373] transition-colors flex justify-between items-center mb-1">Espresso Flow</button>
+                        <button onclick="setTheme('cyberpunk')" data-theme-id="cyberpunk" class="block w-full text-left px-3 py-3 text-xs rounded hover:bg-white/10 text-[#22d3ee] transition-colors flex justify-between items-center mb-1">Cyber Sprint</button>
                         
                         <div class="border-t border-white/10 my-1"></div>
                         <div class="text-[10px] uppercase tracking-widest text-cma-muted px-2 py-1 mb-1">OS Inspired</div>
-                        <button onclick="setTheme('glass')" class="block w-full text-left px-3 py-2 text-xs rounded hover:bg-white/10 text-indigo-200 transition-colors flex items-center justify-between">iOS Glass <i class="fa-brands fa-apple"></i></button>
-                        <button onclick="setTheme('oneui')" class="block w-full text-left px-3 py-2 text-xs rounded hover:bg-white/10 text-violet-200 transition-colors flex items-center justify-between">OneUI <i class="fa-brands fa-android"></i></button>
-                        <button onclick="setTheme('oxygen')" class="block w-full text-left px-3 py-2 text-xs rounded hover:bg-white/10 text-red-200 transition-colors">OxygenOS</button>
-                        <button onclick="setTheme('windows')" class="block w-full text-left px-3 py-2 text-xs rounded hover:bg-white/10 text-blue-200 transition-colors flex items-center justify-between">Windows 11 <i class="fa-brands fa-windows"></i></button>
+                        <button onclick="setTheme('glass')" data-theme-id="glass" class="block w-full text-left px-3 py-3 text-xs rounded hover:bg-white/10 text-indigo-200 transition-colors flex justify-between items-center mb-1">iOS Glass <i class="fa-brands fa-apple"></i></button>
+                        <button onclick="setTheme('oneui')" data-theme-id="oneui" class="block w-full text-left px-3 py-3 text-xs rounded hover:bg-white/10 text-violet-200 transition-colors flex justify-between items-center mb-1">OneUI <i class="fa-brands fa-android"></i></button>
+                        <button onclick="setTheme('oxygen')" data-theme-id="oxygen" class="block w-full text-left px-3 py-3 text-xs rounded hover:bg-white/10 text-red-200 transition-colors flex justify-between items-center mb-1">OxygenOS</button>
+                        <button onclick="setTheme('windows')" data-theme-id="windows" class="block w-full text-left px-3 py-3 text-xs rounded hover:bg-white/10 text-blue-200 transition-colors flex justify-between items-center">Windows 11 <i class="fa-brands fa-windows"></i></button>
                     </div>
                 </div>
                 <!-- Add Widget Btn -->
-                <button onclick="toggleSidebar()" class="accent-bg text-xs px-3 py-1.5 rounded-full font-bold shadow-lg hover:opacity-90 flex items-center gap-2 text-black transition-transform active:scale-95">
+                <button onclick="toggleSidebar(); audio.playClick();" class="accent-bg text-xs px-3 py-1.5 rounded-full font-bold shadow-lg hover:opacity-90 flex items-center gap-2 text-black transition-transform active:scale-95">
                     <i class="fa-solid fa-plus"></i> Widgets
                 </button>
                 <button onclick="requestNotificationPermission()" id="notif-btn" class="text-xs border border-white/20 px-3 py-1.5 rounded-full text-gray-300 hover:bg-white/10 flex items-center gap-2 transition-colors"><i class="fa-regular fa-bell"></i> Enable Alerts</button>
@@ -409,7 +427,7 @@
         <!-- Quote -->
         <div class="glass-panel rounded-2xl p-6 mb-8 relative overflow-hidden border-l-4 accent-border group">
             <h2 class="text-lg md:text-xl font-serif italic pr-8 text-white/90 transition-opacity duration-500" id="quote-display">"Loading..."</h2>
-            <button onclick="displayRandomQuote()" class="absolute bottom-4 right-4 text-cma-muted hover:text-white transition-all hover:rotate-180 duration-500 hover:scale-110 p-2"><i class="fa-solid fa-rotate"></i></button>
+            <button onclick="displayRandomQuote(); audio.playClick();" class="absolute bottom-4 right-4 text-cma-muted hover:text-white transition-all hover:rotate-180 duration-500 hover:scale-110 p-2"><i class="fa-solid fa-rotate"></i></button>
         </div>
 
         <!-- 2-COLUMN GRID -->
@@ -431,22 +449,22 @@
         
         <!-- 1. TIMER -->
         <div id="widget-timer" class="draggable-item glass-panel rounded-2xl p-6 relative" draggable="true" ondragstart="drag(event)">
-            <button onclick="toggleSettingsModal()" class="absolute top-4 left-4 text-gray-500 hover:text-white p-2 rounded-full hover:bg-white/5"><i class="fa-solid fa-gear"></i></button>
+            <button onclick="toggleSettingsModal(); audio.playClick();" class="absolute top-4 left-4 text-gray-500 hover:text-white p-2 rounded-full hover:bg-white/5"><i class="fa-solid fa-gear"></i></button>
             <div class="flex justify-between mb-4 pl-8">
                 <h3 class="font-bold text-lg text-white">Focus Timer</h3>
-                <button onclick="confirmRemove('widget-timer')" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
+                <button onclick="confirmRemove('widget-timer'); audio.playClick();" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="flex bg-black/30 rounded-lg p-1 mb-6">
-                <button onclick="manualSwitchMode(true)" id="tab-work" class="flex-1 py-1.5 text-xs font-bold rounded accent-bg text-black transition-all duration-300">Study</button>
-                <button onclick="manualSwitchMode(false)" id="tab-break" class="flex-1 py-1.5 text-xs font-bold rounded text-cma-muted hover:text-white transition-all duration-300">Break</button>
+                <button onclick="manualSwitchMode(true); audio.playClick();" id="tab-work" class="flex-1 py-1.5 text-xs font-bold rounded accent-bg text-black transition-all duration-300">Study</button>
+                <button onclick="manualSwitchMode(false); audio.playClick();" id="tab-break" class="flex-1 py-1.5 text-xs font-bold rounded text-cma-muted hover:text-white transition-all duration-300">Break</button>
             </div>
             <div class="text-center mb-6">
                 <div class="text-6xl font-mono font-bold tabular-nums text-white transition-colors duration-300" id="timer-display">25:00</div>
                 <div id="timer-status" class="text-xs text-cma-muted mt-2">Ready?</div>
             </div>
             <div class="flex gap-3">
-                <button id="start-btn" onclick="toggleTimer()" class="flex-1 accent-bg font-bold py-3 rounded-lg hover:opacity-90 shadow-lg text-black transition-all active:scale-95">Start</button>
-                <button onclick="resetTimer()" class="px-4 rounded-lg border border-gray-600 hover:bg-gray-700 text-gray-300 transition-all hover:rotate-[-10deg]" title="Reset Timer"><i class="fa-solid fa-rotate-left"></i></button>
+                <button id="start-btn" onclick="toggleTimer(); audio.playClick();" class="flex-1 accent-bg font-bold py-3 rounded-lg hover:opacity-90 shadow-lg text-black transition-all active:scale-95">Start</button>
+                <button onclick="resetTimer(); audio.playClick();" class="px-4 rounded-lg border border-gray-600 hover:bg-gray-700 text-gray-300 transition-all hover:rotate-[-10deg]" title="Reset Timer"><i class="fa-solid fa-rotate-left"></i></button>
             </div>
         </div>
 
@@ -456,7 +474,7 @@
                 <h3 class="font-bold text-lg"><i class="fa-solid fa-list-check text-green-400 mr-2"></i> Daily Goals</h3>
                 <div class="flex gap-2">
                     <span class="text-xs text-cma-muted mt-1" id="daily-progress">0/0</span>
-                    <button onclick="confirmRemove('widget-goals')" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
+                    <button onclick="confirmRemove('widget-goals'); audio.playClick();" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
                 </div>
             </div>
             <div class="flex gap-2 mb-4">
@@ -470,7 +488,7 @@
         <div id="widget-milestones" class="draggable-item glass-panel rounded-2xl p-6 flex flex-col h-[350px]" draggable="true" ondragstart="drag(event)">
              <div class="flex justify-between items-center mb-4">
                 <h3 class="font-bold text-lg"><i class="fa-solid fa-flag text-purple-400 mr-2"></i> Milestones</h3>
-                <button onclick="confirmRemove('widget-milestones')" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
+                <button onclick="confirmRemove('widget-milestones'); audio.playClick();" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="flex gap-2 mb-2">
                 <input type="text" id="new-milestone-input" placeholder="Weekly target..." class="flex-1 bg-black/30 border border-white/10 rounded px-2 py-1 text-sm outline-none text-white placeholder-gray-500">
@@ -484,10 +502,10 @@
             <div class="flex justify-between items-center mb-4">
                 <h3 class="font-bold text-lg"><i class="fa-solid fa-glass-water text-blue-400 mr-2"></i> Hydration</h3>
                 <div class="flex gap-3">
-                    <button onclick="toggleWaterReminder()" class="transition-colors hover:text-white p-1" title="Toggle Alert">
+                    <button onclick="toggleWaterReminder(); audio.playClick();" class="transition-colors hover:text-white p-1" title="Toggle Alert">
                         <i id="water-bell" class="fa-solid fa-bell-slash text-gray-500"></i>
                     </button>
-                    <button onclick="confirmRemove('widget-water')" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
+                    <button onclick="confirmRemove('widget-water'); audio.playClick();" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
                 </div>
             </div>
             <div class="flex items-center gap-4">
@@ -505,7 +523,7 @@
         <div id="widget-calc" class="draggable-item glass-panel rounded-2xl p-5" draggable="true" ondragstart="drag(event)">
             <div class="flex justify-between items-center mb-3">
                 <h3 class="font-bold text-lg"><i class="fa-solid fa-calculator accent-text mr-2"></i> Sci-Calc</h3>
-                <button onclick="confirmRemove('widget-calc')" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
+                <button onclick="confirmRemove('widget-calc'); audio.playClick();" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="bg-black/30 p-2 rounded mb-2 text-right font-mono text-xl text-accent-primary h-10 tracking-widest" id="calc-display">0</div>
             <div class="grid grid-cols-5 gap-1.5 text-xs">
@@ -540,8 +558,8 @@
             <div class="flex justify-between items-center mb-4">
                 <h3 class="font-bold text-lg"><i class="fa-solid fa-note-sticky text-pink-400 mr-2"></i> Notes</h3>
                 <div class="flex gap-2">
-                    <button onclick="clearNotes()" class="text-xs text-cma-muted hover:text-white px-2 py-1 rounded hover:bg-white/5">Clear</button>
-                    <button onclick="confirmRemove('widget-notes')" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
+                    <button onclick="clearNotes(); audio.playClick();" class="text-xs text-cma-muted hover:text-white px-2 py-1 rounded hover:bg-white/5">Clear</button>
+                    <button onclick="confirmRemove('widget-notes'); audio.playClick();" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
                 </div>
             </div>
             <textarea id="note-input" rows="2" placeholder="Quick note..." class="w-full bg-black/30 border border-white/10 rounded p-2 text-sm focus:border-white/30 outline-none resize-none mb-2 text-white placeholder-gray-500"></textarea>
@@ -556,7 +574,7 @@
         <div id="widget-breathing" class="draggable-item glass-panel rounded-2xl p-6 flex flex-col items-center" draggable="true" ondragstart="drag(event)">
             <div class="w-full flex justify-between items-center mb-4">
                 <h3 class="font-bold text-lg"><i class="fa-solid fa-lungs accent-text mr-2"></i> Breathe</h3>
-                <button onclick="confirmRemove('widget-breathing')" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
+                <button onclick="confirmRemove('widget-breathing'); audio.playClick();" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="relative w-32 h-32 flex items-center justify-center mb-4">
                 <div id="breath-circle" class="breathing-circle absolute"></div>
@@ -569,7 +587,7 @@
         <div id="widget-calendar" class="draggable-item glass-panel rounded-2xl p-6" draggable="true" ondragstart="drag(event)">
             <div class="flex justify-between items-center mb-4">
                 <h3 class="font-bold text-lg text-white"><i class="fa-regular fa-calendar accent-text mr-2"></i> <span id="cal-month-year"></span></h3>
-                <button onclick="confirmRemove('widget-calendar')" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
+                <button onclick="confirmRemove('widget-calendar'); audio.playClick();" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="grid grid-cols-7 gap-1 text-center text-xs mb-2 text-cma-muted">
                 <div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
@@ -581,11 +599,11 @@
         <div id="widget-exam" class="draggable-item glass-panel rounded-2xl p-6" draggable="true" ondragstart="drag(event)">
             <div class="flex justify-between items-center mb-4">
                 <h3 class="font-bold text-lg text-white"><i class="fa-solid fa-hourglass-half accent-text mr-2"></i> Exam Day</h3>
-                <button onclick="confirmRemove('widget-exam')" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
+                <button onclick="confirmRemove('widget-exam'); audio.playClick();" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div id="exam-setup" class="flex flex-col gap-2">
                 <input type="date" id="exam-date-input" class="bg-gray-800 text-white p-2 rounded text-sm outline-none focus:border-white">
-                <button onclick="setExamDate()" class="accent-bg text-black font-bold py-1 rounded text-sm hover:opacity-90 active:scale-95 transition-transform">Start Countdown</button>
+                <button onclick="setExamDate(); audio.playSuccess();" class="accent-bg text-black font-bold py-1 rounded text-sm hover:opacity-90 active:scale-95 transition-transform">Start Countdown</button>
             </div>
             <div id="exam-display" class="hidden text-center">
                 <div class="grid grid-cols-3 gap-2 mb-2">
@@ -593,7 +611,7 @@
                     <div class="bg-white/5 rounded p-2 hover:bg-white/10 transition-colors"><div id="exam-h" class="text-xl font-bold text-white">0</div><div class="text-[10px] text-gray-400">Hrs</div></div>
                     <div class="bg-white/5 rounded p-2 hover:bg-white/10 transition-colors"><div id="exam-m" class="text-xl font-bold text-white">0</div><div class="text-[10px] text-gray-400">Mins</div></div>
                 </div>
-                <button onclick="resetExamDate()" class="text-xs text-cma-muted underline hover:text-white">Edit Date</button>
+                <button onclick="resetExamDate(); audio.playClick();" class="text-xs text-cma-muted underline hover:text-white">Edit Date</button>
             </div>
         </div>
     </div>
@@ -672,10 +690,88 @@
             goals: [], milestones: [], notes: [],
             water: { count: 0, date: new Date().toDateString(), active: false },
             timer: { work: 25, break: 5, time: 1500, run: false, mode: 'work', last: Date.now() },
-            calc: "0", examDate: null, alertsEnabled: false
+            calc: "0", examDate: null, alertsEnabled: false,
+            soundEnabled: false, voiceEnabled: false
         };
 
         let pendingRemoveId = null;
+
+        // --- AUDIO ENGINE (Pure JS Synthesizer - No External Files) ---
+        const audio = {
+            ctx: null,
+            init: function() {
+                if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+            },
+            playTone: function(freq, type, duration, vol = 0.1) {
+                if (!state.soundEnabled) return;
+                this.init();
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+                gain.gain.setValueAtTime(vol, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start();
+                osc.stop(this.ctx.currentTime + duration);
+            },
+            playClick: function() { this.playTone(800, 'sine', 0.1, 0.05); },
+            playSuccess: function() { 
+                if (!state.soundEnabled) return;
+                this.init();
+                const now = this.ctx.currentTime;
+                [523.25, 659.25, 783.99, 1046.50].forEach((f, i) => { // C Major Arpeggio
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.frequency.value = f;
+                    osc.type = 'triangle';
+                    gain.gain.setValueAtTime(0.05, now + i*0.1);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + i*0.1 + 0.3);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start(now + i*0.1);
+                    osc.stop(now + i*0.1 + 0.3);
+                });
+            },
+            playAlert: function() {
+                if (!state.soundEnabled) return;
+                this.init();
+                const now = this.ctx.currentTime;
+                // Triple Beep Alarm Sequence
+                for(let i=0; i<3; i++) {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    const start = now + i*0.4;
+                    osc.type = 'square';
+                    osc.frequency.setValueAtTime(880, start);
+                    osc.frequency.exponentialRampToValueAtTime(440, start + 0.2);
+                    gain.gain.setValueAtTime(0.1, start);
+                    gain.gain.exponentialRampToValueAtTime(0.001, start + 0.2);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start(start);
+                    osc.stop(start + 0.25);
+                }
+            },
+            playDrop: function() { this.playTone(150, 'sine', 0.2, 0.1); },
+            playDelete: function() { this.playTone(200, 'sawtooth', 0.1, 0.05); },
+            speak: function(text) {
+                if (!state.voiceEnabled) return;
+                if ('speechSynthesis' in window) {
+                    // Cancel current speech to avoid queue buildup
+                    window.speechSynthesis.cancel();
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    // Try to select a good voice
+                    const voices = window.speechSynthesis.getVoices();
+                    const preferred = voices.find(v => v.name.includes('Google US English') || v.name.includes('Samantha'));
+                    if (preferred) utterance.voice = preferred;
+                    utterance.rate = 1.1; // Slightly energetic
+                    utterance.pitch = 1.1;
+                    window.speechSynthesis.speak(utterance);
+                }
+            }
+        };
 
         // --- INIT ---
         document.addEventListener('DOMContentLoaded', () => {
@@ -684,6 +780,8 @@
             else updateName();
             
             applyTheme(state.theme);
+            updateSoundIcon();
+            updateVoiceIcon();
             renderLayout();
             renderSidebar();
             
@@ -697,7 +795,7 @@
             setInterval(waterReminderCheck, 60000);
             setInterval(updateExamCountdown, 60000);
             displayRandomQuote();
-            changeHeaderIcon(); // Initial random icon
+            changeHeaderIcon(); 
 
             // Initial check for permissions button state
             checkNotificationStatus();
@@ -721,20 +819,18 @@
                 state = { ...state, ...parsed };
                 if(!state.layout.col1) state.layout = JSON.parse(JSON.stringify(DEFAULT_LAYOUT));
                 if(state.water.date !== new Date().toDateString()) { state.water.count = 0; state.water.date = new Date().toDateString(); }
+                // Ensure new fields exist
+                if(typeof state.soundEnabled === 'undefined') state.soundEnabled = false;
+                if(typeof state.voiceEnabled === 'undefined') state.voiceEnabled = false;
             }
         }
         
         function changeHeaderIcon() {
             const el = document.getElementById('dynamic-icon');
-            // Remove animation class to reset
             el.classList.remove('icon-pop');
-            // Force reflow
             void el.offsetWidth;
-            
             const randomEmoji = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
             el.innerText = randomEmoji;
-            
-            // Add animation class
             el.classList.add('icon-pop');
         }
 
@@ -757,10 +853,52 @@
             document.getElementById('theme-menu').classList.add('hidden');
         }
 
+        function applyTheme(t) {
+            document.body.setAttribute('data-theme', t);
+            // Highlight selected theme
+            document.querySelectorAll('#theme-menu button').forEach(btn => {
+                if(btn.dataset.themeId === t) {
+                    btn.classList.add('theme-active');
+                    if(!btn.querySelector('.check-icon')) {
+                        btn.innerHTML += ' <i class="fa-solid fa-check text-green-400 check-icon"></i>';
+                    }
+                } else {
+                    btn.classList.remove('theme-active');
+                    const icon = btn.querySelector('.check-icon');
+                    if(icon) icon.remove();
+                }
+            });
+        }
+
+        // --- AUDIO & VOICE TOGGLES ---
+        function toggleSound() {
+            state.soundEnabled = !state.soundEnabled;
+            saveState();
+            updateSoundIcon();
+            if(state.soundEnabled) audio.playSuccess(); // Feedback
+        }
+        
+        function updateSoundIcon() {
+            const btn = document.getElementById('sound-btn');
+            btn.innerHTML = state.soundEnabled ? '<i class="fa-solid fa-volume-high text-white"></i>' : '<i class="fa-solid fa-volume-xmark"></i>';
+            btn.classList.toggle('text-white', state.soundEnabled);
+        }
+
+        function toggleVoice() {
+            state.voiceEnabled = !state.voiceEnabled;
+            saveState();
+            updateVoiceIcon();
+            if(state.voiceEnabled) audio.speak(`Voice activated, ${state.username}. Let's get to work.`);
+        }
+
+        function updateVoiceIcon() {
+            const btn = document.getElementById('voice-btn');
+            btn.innerHTML = state.voiceEnabled ? '<i class="fa-solid fa-microphone text-white"></i>' : '<i class="fa-solid fa-microphone-slash"></i>';
+            btn.classList.toggle('text-white', state.voiceEnabled);
+        }
+
         // --- NOTIFICATIONS & TOASTS ---
         function checkNotificationStatus() {
-            // Check actual browser permission status. 
-            // If the browser forgets (resets to 'default'), we show the button again.
             if ("Notification" in window && Notification.permission === 'granted') {
                 document.getElementById('notif-btn').style.display = 'none';
             } else {
@@ -769,40 +907,33 @@
         }
 
         function requestNotificationPermission() { 
-            state.alertsEnabled = true; // Assume true on click for persistence in file://
+            state.alertsEnabled = true; 
             saveState();
             document.getElementById('notif-btn').style.display='none';
-            
             if (!("Notification" in window)) {
                 notify("System", "Notifications not supported in this browser.");
                 return;
             }
-            
             Notification.requestPermission().then(p => { 
                 if(p==='granted') { 
                     notify("CMA Companion", "Notifications Enabled!"); 
                 } else {
-                    // Even if denied by browser (likely in file://), we keep in-app toasts enabled
                     notify("System", "Browser alerts blocked, but in-app toasts are on!");
                 }
             }); 
         }
 
         function notify(title, body) {
-            // 1. Toast (Always works locally)
             const t = document.createElement('div');
             t.className = "glass-panel px-4 py-3 rounded-lg border-l-4 border-cma-gold text-white text-sm animate-fade-in mb-2 shadow-lg";
             t.innerHTML = `<div class="font-bold text-xs accent-text mb-1">${title}</div><div>${body}</div>`;
             document.getElementById('toast-container').appendChild(t);
             setTimeout(()=>t.remove(), 5000);
 
-            // 2. Browser Notification (Try/Catch for file:// restrictions)
             if ("Notification" in window && Notification.permission === 'granted') {
                 try {
                     new Notification(title, { body: body, icon: 'https://cdn-icons-png.flaticon.com/512/2921/2921222.png' });
-                } catch (e) {
-                    // Silently fail if blocked
-                }
+                } catch (e) {}
             }
         }
         
@@ -834,10 +965,13 @@
             updateTimer(); 
             saveState();
             if(state.timer.run) {
-                changeHeaderIcon(); // Change icon on start
+                changeHeaderIcon(); 
                 const type = state.timer.mode === 'work' ? "Focus Session" : "Break Time";
                 const msg = state.timer.mode === 'work' ? getRandomMsg(TIMER_START_MSGS) : "Relax and recharge.";
                 notify(type, msg);
+                audio.playSuccess();
+                if(state.timer.mode === 'work') audio.speak(`Starting focus session. ${msg}`);
+                else audio.speak("Break started. Relax.");
             }
         }
         function resetTimer() { 
@@ -855,7 +989,9 @@
                     const title = state.timer.mode==='work' ? "Session Complete!" : "Break Over!";
                     const msg = state.timer.mode==='work' ? getRandomMsg(TIMER_END_MSGS) : `Let's get back to focus, ${state.username}.`;
                     notify(title, msg);
-                    changeHeaderIcon(); // Change icon on complete
+                    changeHeaderIcon();
+                    audio.playAlert(); // Distinct Alarm
+                    audio.speak(msg); // Speak message
                     manualSwitchMode(state.timer.mode!=='work');
                 }
                 updateTimer(); saveState();
@@ -884,10 +1020,11 @@
             saveState(); 
             updateWater();
             
-            // Motivational Notification
             const motivations = ["Hydration +1. Great job!", "Your brain thanks you!", "Keep that energy up!", "Water fuel added."];
             const msg = motivations[Math.floor(Math.random() * motivations.length)];
             notify("Hydration Tracked", msg);
+            audio.playDrop();
+            audio.speak("Water recorded. Good job.");
         }
         function updateWater() {
             document.getElementById('water-count').innerText = state.water.count;
@@ -901,46 +1038,48 @@
         
         function waterReminderCheck() {
             if(state.water.active) {
-                // In a real app we'd track last reminder time, but for this simplified version, we just check if active every minute loop
-                // To limit it to hourly, we can check minutes
                 const m = new Date().getMinutes();
                 if(m === 0) {
-                     notify("Drink Water!", `Hey ${state.username}, time for a hydration break.`);
+                     const msg = `Hey ${state.username}, time for a hydration break.`;
+                     notify("Drink Water!", msg);
+                     audio.playAlert(); // Distinct Alarm
+                     audio.speak(msg);
                 }
             }
         }
 
         // Goals
-        function addGoal() { const i=document.getElementById('new-goal-input'); if(i.value.trim()){ state.goals.push({id:Date.now(), text:i.value.trim(), completed:false}); i.value=''; saveState(); renderGoals(true); } }
+        function addGoal() { const i=document.getElementById('new-goal-input'); if(i.value.trim()){ state.goals.push({id:Date.now(), text:i.value.trim(), completed:false}); i.value=''; saveState(); renderGoals(true); audio.playClick(); } }
         function toggleGoal(id) { 
             const g=state.goals.find(x=>x.id===id); 
             if(g){ 
                 g.completed=!g.completed; 
                 saveState(); renderGoals(false); 
+                audio.playClick();
                 if(g.completed) {
-                    notify("Goal Complete", getRandomMsg(GOAL_COMPLETE_MSGS));
+                    const msg = getRandomMsg(GOAL_COMPLETE_MSGS);
+                    notify("Goal Complete", msg);
                     changeHeaderIcon();
+                    audio.playSuccess();
+                    audio.speak(msg);
                 }
             } 
         }
         function renderGoals(animate = false) { 
             document.getElementById('daily-progress').innerText = `${state.goals.filter(x=>x.completed).length}/${state.goals.length}`;
-            // Removed 'list-item-enter' from this loop to prevent flicker on toggle
-            // Only add animation if it's a new add (simplified here by removing it from re-renders to fix user issue)
-            document.getElementById('goals-list').innerHTML = state.goals.map(g=>`<li class="flex items-center p-2 rounded hover:bg-white/5 group"><input type="checkbox" ${g.completed?'checked':''} onchange="toggleGoal(${g.id})" class="mr-2 accent-green-400 cursor-pointer transform transition-transform duration-200 hover:scale-110"><span class="${g.completed?'line-through text-gray-500':'text-gray-300'} text-sm flex-1 cursor-pointer transition-colors" onclick="toggleGoal(${g.id})">${g.text}</span><button onclick="state.goals=state.goals.filter(x=>x.id!==${g.id});saveState();renderGoals()" class="text-gray-600 hover:text-red-400 hidden group-hover:block transition-colors"><i class="fa-solid fa-trash-can"></i></button></li>`).join('');
+            document.getElementById('goals-list').innerHTML = state.goals.map(g=>`<li class="flex items-center p-2 rounded hover:bg-white/5 group"><input type="checkbox" ${g.completed?'checked':''} onchange="toggleGoal(${g.id})" class="mr-2 accent-green-400 cursor-pointer transform transition-transform duration-200 hover:scale-110"><span class="${g.completed?'line-through text-gray-500':'text-gray-300'} text-sm flex-1 cursor-pointer transition-colors" onclick="toggleGoal(${g.id})">${g.text}</span><button onclick="state.goals=state.goals.filter(x=>x.id!==${g.id});saveState();renderGoals();audio.playDelete()" class="text-gray-600 hover:text-red-400 hidden group-hover:block transition-colors"><i class="fa-solid fa-trash-can"></i></button></li>`).join('');
         }
 
         // Milestones
-        function addMilestone() { const i=document.getElementById('new-milestone-input'); if(i.value.trim()){ state.milestones.push({id:Date.now(), text:i.value.trim()}); i.value=''; saveState(); renderMilestones(); notify("Milestone Set", "Target locked. Go get it!"); } }
+        function addMilestone() { const i=document.getElementById('new-milestone-input'); if(i.value.trim()){ state.milestones.push({id:Date.now(), text:i.value.trim()}); i.value=''; saveState(); renderMilestones(); notify("Milestone Set", "Target locked. Go get it!"); audio.playSuccess(); } }
         function renderMilestones() { 
-            // Removed 'list-item-enter' class to prevent flicker of existing items during add/delete events
-            document.getElementById('milestone-list').innerHTML = state.milestones.map(m=>`<div class="bg-white/5 p-2 rounded text-sm flex justify-between group mb-1 hover:bg-white/10 transition-colors"><span><i class="fa-solid fa-flag text-purple-400 mr-2"></i>${m.text}</span><button onclick="state.milestones=state.milestones.filter(x=>x.id!==${m.id});saveState();renderMilestones()" class="text-gray-600 hover:text-red-400 hidden group-hover:block transition-colors"><i class="fa-solid fa-trash-can"></i></button></div>`).join(''); 
+            document.getElementById('milestone-list').innerHTML = state.milestones.map(m=>`<div class="bg-white/5 p-2 rounded text-sm flex justify-between group mb-1 hover:bg-white/10 transition-colors"><span><i class="fa-solid fa-flag text-purple-400 mr-2"></i>${m.text}</span><button onclick="state.milestones=state.milestones.filter(x=>x.id!==${m.id});saveState();renderMilestones();audio.playDelete()" class="text-gray-600 hover:text-red-400 hidden group-hover:block transition-colors"><i class="fa-solid fa-trash-can"></i></button></div>`).join(''); 
         }
 
         // Notes
         function addNote() {
             const txt = document.getElementById('note-input'); const tm = document.getElementById('note-time');
-            if(txt.value.trim()){ state.notes.push({id:Date.now(), text:txt.value.trim(), time:tm.value, notified:false}); txt.value=''; tm.value=''; saveState(); renderNotes(); notify("Note Saved", getRandomMsg(NOTE_SAVED_MSGS)); }
+            if(txt.value.trim()){ state.notes.push({id:Date.now(), text:txt.value.trim(), time:tm.value, notified:false}); txt.value=''; tm.value=''; saveState(); renderNotes(); const msg = getRandomMsg(NOTE_SAVED_MSGS); notify("Note Saved", msg); audio.playClick(); audio.speak(msg); }
         }
         function renderNotes() {
             document.getElementById('notes-list').innerHTML = state.notes.map(n => {
@@ -952,12 +1091,15 @@
                 </div>`;
             }).join('');
         }
-        function deleteNote(id) { state.notes = state.notes.filter(n=>n.id!==id); saveState(); renderNotes(); }
+        function deleteNote(id) { state.notes = state.notes.filter(n=>n.id!==id); saveState(); renderNotes(); audio.playDelete(); }
         function checkReminders() {
             const now = new Date(); let chg = false;
             state.notes.forEach(n => {
                 if(n.time && !n.notified && now >= new Date(n.time)) {
-                    notify("Reminder", `Hey ${state.username}, don't forget: ${n.text}`);
+                    const msg = `Hey ${state.username}, don't forget: ${n.text}`;
+                    notify("Reminder", msg);
+                    audio.playAlert(); // Distinct Alarm
+                    audio.speak(msg);
                     n.notified = true; chg = true;
                 }
             });
@@ -976,7 +1118,7 @@
             if(inactive.length === 0) list.innerHTML = '<div class="text-sm text-gray-500 text-center italic">All widgets active</div>';
             inactive.forEach(w => {
                 const div = document.createElement('div'); div.className = "flex justify-between items-center p-3 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition-colors";
-                div.innerHTML = `<div class="flex items-center gap-3"><i class="fa-solid ${w.icon} accent-text"></i><span class="text-sm font-bold text-gray-200">${w.name}</span></div><button onclick="addWidget('${w.id}')" class="text-green-400 hover:text-green-300 transition-colors active:scale-110"><i class="fa-solid fa-plus-circle"></i></button>`;
+                div.innerHTML = `<div class="flex items-center gap-3"><i class="fa-solid ${w.icon} accent-text"></i><span class="text-sm font-bold text-gray-200">${w.name}</span></div><button onclick="addWidget('${w.id}'); audio.playDrop();" class="text-green-400 hover:text-green-300 transition-colors active:scale-110"><i class="fa-solid fa-plus-circle"></i></button>`;
                 list.appendChild(div);
             });
         }
@@ -984,37 +1126,54 @@
             if(state.layout.col1.length <= state.layout.col2.length) state.layout.col1.push(id); else state.layout.col2.push(id);
             saveState(); renderLayout(); renderSidebar();
         }
-        function confirmRemove(id) { pendingRemoveId = id; document.getElementById('remove-modal').classList.add('active'); }
+        function confirmRemove(id) { pendingRemoveId = id; document.getElementById('remove-modal').classList.add('active'); audio.playClick(); }
         document.getElementById('confirm-remove-btn').onclick = () => {
             if(pendingRemoveId) {
                 state.layout.col1 = state.layout.col1.filter(x => x !== pendingRemoveId); state.layout.col2 = state.layout.col2.filter(x => x !== pendingRemoveId);
                 document.getElementById('widget-store').appendChild(document.getElementById(pendingRemoveId));
-                saveState(); renderSidebar(); closeRemoveModal();
+                saveState(); renderSidebar(); closeRemoveModal(); audio.playDelete();
             }
         };
         function closeRemoveModal() { document.getElementById('remove-modal').classList.remove('active'); pendingRemoveId = null; }
         function toggleSidebar() { document.getElementById('widget-sidebar').classList.toggle('open'); document.getElementById('overlay').classList.toggle('hidden'); }
 
         // Utils
-        function saveNameAndStart() { const n = document.getElementById('username-input').value.trim(); if(n){ state.username=n; saveState(); document.getElementById('welcome-modal').classList.remove('active'); updateName(); } }
+        function saveNameAndStart() { const n = document.getElementById('username-input').value.trim(); if(n){ state.username=n; saveState(); document.getElementById('welcome-modal').classList.remove('active'); updateName(); audio.playSuccess(); audio.speak(`Welcome to your study space, ${n}.`); } }
         function updateName() { document.getElementById('header-name').innerText = state.username; displayRandomQuote(); }
         function applyTheme(t) { document.body.setAttribute('data-theme', t); }
         function allowDrop(ev) { ev.preventDefault(); ev.currentTarget.classList.add('drag-over'); }
         function drag(ev) { ev.dataTransfer.setData("text", ev.target.id); }
-        function drop(ev) { ev.preventDefault(); const data = ev.dataTransfer.getData("text"); const zone = ev.currentTarget; document.querySelectorAll('.drag-over').forEach(el=>el.classList.remove('drag-over')); if(zone.classList.contains('drop-zone')) { zone.appendChild(document.getElementById(data)); saveLayoutState(); } }
+        function drop(ev) { ev.preventDefault(); const data = ev.dataTransfer.getData("text"); const zone = ev.currentTarget; document.querySelectorAll('.drag-over').forEach(el=>el.classList.remove('drag-over')); if(zone.classList.contains('drop-zone')) { zone.appendChild(document.getElementById(data)); saveLayoutState(); audio.playDrop(); } }
         function saveLayoutState() { state.layout.col1 = Array.from(document.getElementById('col-1').children).map(el=>el.id); state.layout.col2 = Array.from(document.getElementById('col-2').children).map(el=>el.id); saveState(); }
         
         // Other Widgets (Breathing, Calc, Calendar, Exam)
         let breathInt;
         function toggleBreathing() {
             const circle = document.getElementById('breath-circle'); const txt = document.getElementById('breath-text'); const btn = document.getElementById('breath-btn');
+            audio.playClick();
             if(circle.classList.contains('breathing-active')) { circle.classList.remove('breathing-active'); txt.innerText="Ready?"; btn.innerText="Start"; clearInterval(breathInt); }
-            else { circle.classList.add('breathing-active'); btn.innerText="Stop"; let p=0; const cycle = () => { const phases = ["Inhale (4s)", "Hold (4s)", "Exhale (4s)", "Hold (4s)"]; txt.innerText = phases[p]; p=(p+1)%4; }; cycle(); breathInt = setInterval(cycle, 4000); }
+            else { 
+                circle.classList.add('breathing-active'); btn.innerText="Stop"; 
+                let p=0; 
+                const phases = ["Inhale (4s)", "Hold (4s)", "Exhale (4s)", "Hold (4s)"];
+                const cycle = () => { 
+                    txt.innerText = phases[p]; 
+                    if(state.soundEnabled) audio.playTone(200 + (p%2)*100, 'sine', 1, 0.05); // Subtle tone for breath phases
+                    p=(p+1)%4; 
+                }; 
+                cycle(); 
+                breathInt = setInterval(cycle, 4000); 
+                audio.speak("Follow the breathing circle. Relax.");
+            }
         }
-        function calcInput(v) { if(state.calc==="0" && !"+-*/.".includes(v)) state.calc=v; else state.calc+=v; updateCalc(); }
-        function calcDelete() { state.calc = state.calc.length>1 ? state.calc.slice(0,-1) : "0"; updateCalc(); }
-        function calcResult() { try { state.calc = String(parseFloat(eval(state.calc).toFixed(6))); } catch(e){state.calc="Error";} updateCalc(); }
-        function calcClear() { state.calc="0"; updateCalc(); }
+        function calcInput(v) { 
+            if(state.calc==="0" && !"+-*/.".includes(v)) state.calc=v; else state.calc+=v; 
+            updateCalc(); 
+            if(state.soundEnabled) audio.playTone(600, 'sine', 0.05, 0.02); // Very short blip
+        }
+        function calcDelete() { state.calc = state.calc.length>1 ? state.calc.slice(0,-1) : "0"; updateCalc(); audio.playDelete(); }
+        function calcResult() { try { state.calc = String(parseFloat(eval(state.calc).toFixed(6))); audio.playSuccess(); } catch(e){state.calc="Error"; audio.playDelete();} updateCalc(); }
+        function calcClear() { state.calc="0"; updateCalc(); audio.playDelete(); }
         function updateCalc() { document.getElementById('calc-display').innerText = state.calc; saveState(); }
         function renderCalendar() {
             const now = new Date(); document.getElementById('cal-month-year').innerText = now.toLocaleString('default', { month: 'long', year: 'numeric' });
@@ -1024,8 +1183,8 @@
             for(let i=1; i<=days; i++) grid.innerHTML += `<div class="p-1 rounded ${i===now.getDate()?'accent-bg font-bold text-cma-dark':'hover:bg-white/10'} transition-colors">${i}</div>`;
         }
         function checkExamWidget() { if(state.examDate) { document.getElementById('exam-setup').classList.add('hidden'); document.getElementById('exam-display').classList.remove('hidden'); updateExamCountdown(); } else { document.getElementById('exam-setup').classList.remove('hidden'); document.getElementById('exam-display').classList.add('hidden'); } }
-        function setExamDate() { const d = document.getElementById('exam-date-input').value; if(d) { state.examDate = d; saveState(); checkExamWidget(); } }
-        function resetExamDate() { state.examDate = null; saveState(); checkExamWidget(); }
+        function setExamDate() { const d = document.getElementById('exam-date-input').value; if(d) { state.examDate = d; saveState(); checkExamWidget(); audio.playSuccess(); } }
+        function resetExamDate() { state.examDate = null; saveState(); checkExamWidget(); audio.playClick(); }
         function updateExamCountdown() { if(!state.examDate) return; const diff = new Date(state.examDate) - new Date(); if(diff <= 0) document.getElementById('exam-d').innerText = "0"; else { document.getElementById('exam-d').innerText = Math.floor(diff / (86400000)); document.getElementById('exam-h').innerText = Math.floor((diff % 86400000) / 3600000); document.getElementById('exam-m').innerText = Math.floor((diff % 3600000) / 60000); } }
     </script>
 </body>
