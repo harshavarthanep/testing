@@ -17,48 +17,221 @@
     <!-- CSS -->
     <style>
         :root {
-            /* Default Theme (Classic Navy) */
+            /* Default Theme (Deep Focus - Navy) */
             --bg-main: #0f172a;
-            --bg-card: rgba(30, 41, 59, 0.85);
+            --bg-card: rgba(30, 41, 59, 0.7);
             --text-main: #f1f5f9;
             --text-muted: #94a3b8;
             --accent-primary: #fbbf24; /* Gold */
             --border-color: rgba(255, 255, 255, 0.08);
+            --bg-image: radial-gradient(circle at top right, rgba(255,255,255,0.03), transparent 40%),
+                        radial-gradient(circle at bottom left, rgba(255,255,255,0.03), transparent 40%);
         }
 
-        /* Themes */
-        [data-theme="forest"] { --bg-main: #022c22; --bg-card: rgba(6, 78, 59, 0.85); --accent-primary: #4ade80; }
-        [data-theme="purple"] { --bg-main: #2e1065; --bg-card: rgba(88, 28, 135, 0.85); --accent-primary: #d8b4fe; }
-        [data-theme="ocean"] { --bg-main: #0c4a6e; --bg-card: rgba(12, 74, 110, 0.85); --accent-primary: #38bdf8; }
+        /* --- STUDY THEMES --- */
 
+        /* Night Owl (Midnight) */
+        [data-theme="midnight"] { 
+            --bg-main: #000000; 
+            --bg-card: rgba(20, 20, 20, 0.85); 
+            --accent-primary: #e2e8f0; 
+            --bg-image: none;
+        }
+
+        /* Espresso Flow (Coffee) */
+        [data-theme="coffee"] { 
+            --bg-main: #271c19; 
+            --bg-card: rgba(60, 42, 33, 0.85); 
+            --accent-primary: #d4a373; 
+            --bg-image: linear-gradient(to bottom, #271c19, #1a1210);
+        }
+
+        /* Cyber Sprint (Cyberpunk) */
+        [data-theme="cyberpunk"] { 
+            --bg-main: #09090b; 
+            --bg-card: rgba(24, 24, 27, 0.9); 
+            --accent-primary: #22d3ee; 
+            --bg-image: repeating-linear-gradient(45deg, #09090b 25%, transparent 25%, transparent 75%, #09090b 75%, #09090b), 
+                        repeating-linear-gradient(45deg, #09090b 25%, #09090b 25%, #09090b 75%, #09090b 75%, #09090b);
+        }
+
+        /* --- OS INSPIRED THEMES --- */
+
+        /* Crystal Clarity (iOS 16 Glass - Refined) */
+        [data-theme="glass"] { 
+            --bg-main: #000000;
+            --bg-card: rgba(255, 255, 255, 0.08); 
+            --accent-primary: #e0e7ff; 
+            --bg-image: radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+                        radial-gradient(at 50% 0%, hsla(225,39%,10%,1) 0, transparent 50%), 
+                        radial-gradient(at 100% 0%, hsla(339,20%,10%,1) 0, transparent 50%);
+            --border-color: rgba(255, 255, 255, 0.12);
+        }
+        [data-theme="glass"] .glass-panel {
+            backdrop-filter: blur(40px) saturate(140%);
+            -webkit-backdrop-filter: blur(40px) saturate(140%);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* OneUI (Samsung Style - AMOLED) */
+        [data-theme="oneui"] {
+            --bg-main: #000000;
+            --bg-card: #1c1c1e; /* Deep gray, not transparent */
+            --accent-primary: #a78bfa; /* Soft Violet */
+            --text-main: #ffffff;
+            --text-muted: #9ca3af;
+            --border-color: #2c2c2e;
+            --bg-image: none;
+        }
+        [data-theme="oneui"] .glass-panel {
+            border-radius: 24px; /* More rounded */
+            backdrop-filter: none;
+            box-shadow: none;
+        }
+        [data-theme="oneui"] button {
+            border-radius: 999px; /* Pill shapes */
+        }
+
+        /* Oxygen (OnePlus Style - Zen Mode) */
+        [data-theme="oxygen"] {
+            --bg-main: #1f1f1f;
+            --bg-card: #282828;
+            --accent-primary: #f87171; /* Oxygen Red/Pink */
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: rgba(255,255,255,0.05);
+            --bg-image: linear-gradient(to bottom right, #1f1f1f 50%, #2a2a2a 100%);
+        }
+
+        /* Windows 11 (Mica/Bloom) */
+        [data-theme="windows"] {
+            --bg-main: #202020;
+            --bg-card: rgba(255, 255, 255, 0.04); /* Mica effect simulation */
+            --accent-primary: #60cdff; /* Win 11 Blue */
+            --text-main: #ffffff;
+            --border-color: rgba(255,255,255,0.08);
+            /* Abstract Bloom Background */
+            --bg-image: radial-gradient(circle at 50% 10%, rgba(96, 205, 255, 0.15), transparent 60%),
+                        radial-gradient(circle at 90% 90%, rgba(139, 92, 246, 0.15), transparent 50%);
+        }
+
+
+        /* --- BASE STYLES --- */
         body {
             background-color: var(--bg-main);
-            background-image: radial-gradient(circle at top right, rgba(255,255,255,0.03), transparent 40%),
-                              radial-gradient(circle at bottom left, rgba(255,255,255,0.03), transparent 40%);
+            background-image: var(--bg-image);
             background-attachment: fixed;
+            background-size: cover;
             color: var(--text-main);
-            transition: background-color 0.5s ease;
+            transition: background 0.5s ease;
         }
 
         .glass-panel {
             background: var(--bg-card);
             backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--border-color);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* --- SATISFYING ANIMATIONS --- */
+        
+        /* Buttons: Press effect & brightness */
+        button {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        button:hover {
+            filter: brightness(1.15);
+            transform: translateY(-1px);
+        }
+        button:active {
+            transform: scale(0.95) translateY(0);
+            filter: brightness(0.9);
         }
 
-        /* Drag & Drop */
-        .draggable-item { cursor: grab; }
-        .draggable-item:active { cursor: grabbing; }
+        /* Widgets: Hover Lift (Optimized - Subtle) */
+        .draggable-item { 
+            cursor: grab; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .draggable-item:hover {
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 24px -6px rgba(0,0,0,0.4); 
+            border-color: rgba(255,255,255,0.15);
+        }
+        .draggable-item:active { 
+            cursor: grabbing; 
+            transform: scale(0.99);
+        }
+
+        /* Inputs: Focus Glow */
+        input, textarea, select {
+            transition: all 0.2s ease;
+            border: 1px solid var(--border-color);
+        }
+        input:focus, textarea:focus {
+            transform: scale(1.005);
+            background: rgba(0,0,0,0.4);
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.05);
+        }
+
+        /* Checkbox Animation */
+        input[type="checkbox"] {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        input[type="checkbox"]:checked {
+            transform: scale(1.1);
+        }
+
+        /* List Items Slide In */
+        .list-item-enter {
+            animation: slideIn 0.3s ease forwards;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Premium Emoji Icon Styles */
+        .premium-icon {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--accent-primary);
+            box-shadow: 0 0 15px -8px var(--accent-primary);
+            color: #fff; /* Ensure visibility on all backgrounds */
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        
+        /* Updated: Subtle Premium Pop */
+        .icon-pop {
+            animation: iconPop 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        @keyframes iconPop {
+            0% { transform: scale(0.95); filter: brightness(1); }
+            50% { transform: scale(1.05); filter: brightness(1.2); }
+            100% { transform: scale(1); filter: brightness(1); }
+        }
+
+        /* --- EXISTING STYLES --- */
         .drop-zone { min-height: 150px; border-radius: 1rem; transition: background 0.3s; }
-        .drop-zone.drag-over { background: rgba(255,255,255,0.05); border: 2px dashed var(--accent-primary); }
+        .drop-zone.drag-over { background: rgba(255,255,255,0.05); border: 2px dashed var(--accent-primary); transform: scale(1.01); }
 
         /* Animation */
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .animate-fade-in { animation: fadeIn 0.6s ease-out forwards; }
         
-        .modal { transition: opacity 0.2s ease-in-out; opacity: 0; pointer-events: none; }
+        .modal { transition: opacity 0.2s ease-in-out; opacity: 0; pointer-events: none; backdrop-filter: blur(5px); }
         .modal.active { opacity: 1; pointer-events: auto; }
 
         .gold-gradient-text {
@@ -75,15 +248,16 @@
         .widget-sidebar {
             position: fixed; right: -320px; top: 0; width: 300px; height: 100%;
             background: var(--bg-card); backdrop-filter: blur(20px); z-index: 100;
-            transition: right 0.3s ease; border-left: 1px solid var(--border-color);
+            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); border-left: 1px solid var(--border-color);
             padding: 20px; overflow-y: auto;
         }
-        .widget-sidebar.open { right: 0; }
+        .widget-sidebar.open { right: 0; box-shadow: -10px 0 30px rgba(0,0,0,0.5); }
 
         /* Breathing Animation */
         .breathing-circle {
             width: 80px; height: 80px; border-radius: 50%; background: var(--accent-primary);
             opacity: 0.2; transform: scale(0.8);
+            transition: all 0.5s ease;
         }
         .breathing-active { animation: breathe 16s infinite ease-in-out; }
         @keyframes breathe {
@@ -107,7 +281,8 @@
         .accent-border { border-color: var(--accent-primary); }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.4); }
     </style>
 
     <script>
@@ -127,13 +302,13 @@
 
     <!-- Toast & Overlay -->
     <div id="toast-container" class="fixed top-4 right-4 z-[110] space-y-2 pointer-events-none"></div>
-    <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/50 z-40 hidden backdrop-blur-sm transition-opacity"></div>
+    <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/50 z-40 hidden backdrop-blur-sm transition-opacity duration-300"></div>
 
     <!-- WIDGET SIDEBAR -->
     <div id="widget-sidebar" class="widget-sidebar shadow-2xl">
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
             <h2 class="text-xl font-bold font-serif accent-text">Widgets</h2>
-            <button onclick="toggleSidebar()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <button onclick="toggleSidebar()" class="text-gray-400 hover:text-white p-2 rounded-full hover:bg-white/10"><i class="fa-solid fa-xmark text-xl"></i></button>
         </div>
         <div id="sidebar-list" class="space-y-4">
             <!-- Inactive widgets appear here -->
@@ -144,7 +319,7 @@
     <!-- Welcome -->
     <div id="welcome-modal" class="modal fixed inset-0 z-[120] flex items-center justify-center bg-black/90 backdrop-blur-md">
         <div class="glass-panel p-8 rounded-2xl w-full max-w-md mx-4 text-center border-t-2 border-b-2 accent-border">
-            <div class="mb-4 text-5xl accent-text"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div class="mb-4 text-5xl accent-text animate-bounce"><i class="fa-solid fa-graduation-cap"></i></div>
             <h2 class="text-3xl font-serif font-bold text-white mb-2">Welcome, Future CMA!</h2>
             <p class="text-cma-muted mb-6">Let's personalize your study sanctuary. What should I call you?</p>
             <input type="text" id="username-input" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-4 text-center text-xl text-white focus:border-white outline-none mb-6 placeholder-gray-600" placeholder="e.g. Shivani">
@@ -154,15 +329,15 @@
 
     <!-- Settings -->
     <div id="settings-modal" class="modal fixed inset-0 z-[120] flex items-center justify-center bg-black/70 backdrop-blur-sm">
-        <div class="glass-panel p-6 rounded-xl w-full max-w-sm mx-4">
+        <div class="glass-panel p-6 rounded-xl w-full max-w-sm mx-4 transform transition-all scale-100">
             <h3 class="text-xl font-serif font-bold accent-text mb-4"><i class="fa-solid fa-clock"></i> Timer Settings</h3>
             <div class="space-y-4">
                 <div><label class="block text-sm text-cma-muted mb-1">Study (mins)</label><input type="number" id="setting-work" class="w-full bg-gray-900 border border-gray-700 rounded p-2 text-white outline-none" min="1"></div>
                 <div><label class="block text-sm text-cma-muted mb-1">Break (mins)</label><input type="number" id="setting-break" class="w-full bg-gray-900 border border-gray-700 rounded p-2 text-white outline-none" min="1"></div>
             </div>
             <div class="flex justify-end gap-3 mt-6">
-                <button onclick="toggleSettingsModal()" class="px-4 py-2 text-gray-400">Cancel</button>
-                <button onclick="saveTimerSettings()" class="px-4 py-2 accent-bg font-bold rounded text-black">Save</button>
+                <button onclick="toggleSettingsModal()" class="px-4 py-2 text-gray-400 hover:text-white">Cancel</button>
+                <button onclick="saveTimerSettings()" class="px-4 py-2 accent-bg font-bold rounded text-black shadow-lg">Save</button>
             </div>
         </div>
     </div>
@@ -170,12 +345,12 @@
     <!-- Remove Confirmation -->
     <div id="remove-modal" class="modal fixed inset-0 z-[130] flex items-center justify-center bg-black/70 backdrop-blur-sm">
         <div class="glass-panel p-6 rounded-xl w-full max-w-sm mx-4 text-center border border-red-500/30">
-            <i class="fa-solid fa-triangle-exclamation text-3xl text-red-400 mb-4"></i>
+            <i class="fa-solid fa-triangle-exclamation text-3xl text-red-400 mb-4 animate-pulse"></i>
             <h3 class="text-lg font-bold text-white mb-2">Remove Widget?</h3>
             <p class="text-sm text-cma-muted mb-6">It will move to the Widget Store. You can add it back later.</p>
             <div class="flex gap-3 justify-center">
                 <button onclick="closeRemoveModal()" class="px-4 py-2 rounded bg-gray-700 hover:bg-gray-600 text-white">No, Keep it</button>
-                <button id="confirm-remove-btn" class="px-4 py-2 rounded bg-red-600 hover:bg-red-700 text-white font-bold">Yes, Remove</button>
+                <button id="confirm-remove-btn" class="px-4 py-2 rounded bg-red-600 hover:bg-red-700 text-white font-bold shadow-red-900/50 shadow-lg">Yes, Remove</button>
             </div>
         </div>
     </div>
@@ -184,8 +359,9 @@
     <header class="w-full px-6 py-4 border-b border-white/10 bg-black/20 sticky top-0 z-40 backdrop-blur-md">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-4">
-                <div class="accent-bg w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg shadow-lg text-black">
-                    <i class="fa-solid fa-scale-balanced"></i>
+                <!-- Dynamic Emoji Container with Premium Style -->
+                <div id="dynamic-icon" onclick="changeHeaderIcon()" class="premium-icon w-10 h-10 rounded-full flex items-center justify-center font-bold text-xl cursor-pointer select-none">
+                    🚀
                 </div>
                 <div>
                     <h1 class="text-2xl font-serif font-bold tracking-wide flex items-center gap-2">
@@ -203,19 +379,27 @@
             <div class="flex items-center gap-3">
                 <!-- Clickable Theme Menu -->
                 <div class="relative">
-                    <button onclick="toggleThemeMenu(event)" class="text-cma-muted hover:text-white p-2"><i class="fa-solid fa-palette"></i></button>
-                    <div id="theme-menu" class="absolute right-0 mt-2 w-32 glass-panel rounded-lg p-2 hidden z-50">
-                        <button onclick="setTheme('default')" class="block w-full text-left px-2 py-1 text-xs hover:bg-white/10 text-amber-400">Classic</button>
-                        <button onclick="setTheme('forest')" class="block w-full text-left px-2 py-1 text-xs hover:bg-white/10 text-green-400">Forest</button>
-                        <button onclick="setTheme('purple')" class="block w-full text-left px-2 py-1 text-xs hover:bg-white/10 text-purple-400">Purple</button>
-                        <button onclick="setTheme('ocean')" class="block w-full text-left px-2 py-1 text-xs hover:bg-white/10 text-cyan-400">Ocean</button>
+                    <button onclick="toggleThemeMenu(event)" class="text-cma-muted hover:text-white p-2 rounded-lg hover:bg-white/5"><i class="fa-solid fa-palette"></i></button>
+                    <div id="theme-menu" class="absolute right-0 mt-2 w-48 glass-panel rounded-xl p-2 hidden z-50 transform origin-top-right transition-all duration-200">
+                        <div class="text-[10px] uppercase tracking-widest text-cma-muted px-2 py-1 mb-1">Study Mode</div>
+                        <button onclick="setTheme('default')" class="block w-full text-left px-3 py-2 text-xs rounded hover:bg-white/10 text-amber-200 transition-colors">Deep Focus</button>
+                        <button onclick="setTheme('midnight')" class="block w-full text-left px-3 py-2 text-xs rounded hover:bg-white/10 text-gray-300 transition-colors">Night Owl</button>
+                        <button onclick="setTheme('coffee')" class="block w-full text-left px-3 py-2 text-xs rounded hover:bg-white/10 text-[#d4a373] transition-colors">Espresso Flow</button>
+                        <button onclick="setTheme('cyberpunk')" class="block w-full text-left px-3 py-2 text-xs rounded hover:bg-white/10 text-[#22d3ee] transition-colors">Cyber Sprint</button>
+                        
+                        <div class="border-t border-white/10 my-1"></div>
+                        <div class="text-[10px] uppercase tracking-widest text-cma-muted px-2 py-1 mb-1">OS Inspired</div>
+                        <button onclick="setTheme('glass')" class="block w-full text-left px-3 py-2 text-xs rounded hover:bg-white/10 text-indigo-200 transition-colors flex items-center justify-between">iOS Glass <i class="fa-brands fa-apple"></i></button>
+                        <button onclick="setTheme('oneui')" class="block w-full text-left px-3 py-2 text-xs rounded hover:bg-white/10 text-violet-200 transition-colors flex items-center justify-between">OneUI <i class="fa-brands fa-android"></i></button>
+                        <button onclick="setTheme('oxygen')" class="block w-full text-left px-3 py-2 text-xs rounded hover:bg-white/10 text-red-200 transition-colors">OxygenOS</button>
+                        <button onclick="setTheme('windows')" class="block w-full text-left px-3 py-2 text-xs rounded hover:bg-white/10 text-blue-200 transition-colors flex items-center justify-between">Windows 11 <i class="fa-brands fa-windows"></i></button>
                     </div>
                 </div>
                 <!-- Add Widget Btn -->
-                <button onclick="toggleSidebar()" class="accent-bg text-xs px-3 py-1.5 rounded-full font-bold shadow-lg hover:opacity-90 flex items-center gap-2 text-black">
+                <button onclick="toggleSidebar()" class="accent-bg text-xs px-3 py-1.5 rounded-full font-bold shadow-lg hover:opacity-90 flex items-center gap-2 text-black transition-transform active:scale-95">
                     <i class="fa-solid fa-plus"></i> Widgets
                 </button>
-                <button onclick="requestNotificationPermission()" id="notif-btn" class="text-xs border border-white/20 px-3 py-1.5 rounded-full text-gray-300 hover:bg-white/10 flex items-center gap-2"><i class="fa-regular fa-bell"></i> Enable Alerts</button>
+                <button onclick="requestNotificationPermission()" id="notif-btn" class="text-xs border border-white/20 px-3 py-1.5 rounded-full text-gray-300 hover:bg-white/10 flex items-center gap-2 transition-colors"><i class="fa-regular fa-bell"></i> Enable Alerts</button>
             </div>
         </div>
     </header>
@@ -223,23 +407,23 @@
     <!-- MAIN DASHBOARD -->
     <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 py-8 w-full">
         <!-- Quote -->
-        <div class="glass-panel rounded-2xl p-6 mb-8 relative overflow-hidden border-l-4 accent-border">
-            <h2 class="text-lg md:text-xl font-serif italic pr-8 text-white/90" id="quote-display">"Loading..."</h2>
-            <button onclick="displayRandomQuote()" class="absolute bottom-4 right-4 text-cma-muted hover:text-white transition-transform hover:rotate-180 duration-500"><i class="fa-solid fa-rotate"></i></button>
+        <div class="glass-panel rounded-2xl p-6 mb-8 relative overflow-hidden border-l-4 accent-border group">
+            <h2 class="text-lg md:text-xl font-serif italic pr-8 text-white/90 transition-opacity duration-500" id="quote-display">"Loading..."</h2>
+            <button onclick="displayRandomQuote()" class="absolute bottom-4 right-4 text-cma-muted hover:text-white transition-all hover:rotate-180 duration-500 hover:scale-110 p-2"><i class="fa-solid fa-rotate"></i></button>
         </div>
 
         <!-- 2-COLUMN GRID -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <!-- Left: Timer, Goals, Milestones -->
-            <div id="col-1" class="drop-zone flex flex-col gap-6" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div id="col-1" class="drop-zone flex flex-col gap-6 p-1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
             <!-- Right: Water, Calc, Notes -->
-            <div id="col-2" class="drop-zone flex flex-col gap-6" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div id="col-2" class="drop-zone flex flex-col gap-6 p-1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
         </div>
     </main>
 
     <!-- FOOTER -->
-    <footer class="text-center py-6 text-cma-muted text-xs opacity-60">
-        <p>Made with <i class="fa-solid fa-heart text-red-500 mx-1"></i> by Harsha Varthan E P</p>
+    <footer class="text-center py-6 text-cma-muted text-xs opacity-60 hover:opacity-100 transition-opacity">
+        <p>Made with <i class="fa-solid fa-heart text-red-500 mx-1 animate-pulse"></i> by Harsha Varthan E P</p>
     </footer>
 
     <!-- WIDGET DEFINITIONS -->
@@ -247,22 +431,22 @@
         
         <!-- 1. TIMER -->
         <div id="widget-timer" class="draggable-item glass-panel rounded-2xl p-6 relative" draggable="true" ondragstart="drag(event)">
-            <button onclick="toggleSettingsModal()" class="absolute top-4 left-4 text-gray-500 hover:text-white"><i class="fa-solid fa-gear"></i></button>
+            <button onclick="toggleSettingsModal()" class="absolute top-4 left-4 text-gray-500 hover:text-white p-2 rounded-full hover:bg-white/5"><i class="fa-solid fa-gear"></i></button>
             <div class="flex justify-between mb-4 pl-8">
                 <h3 class="font-bold text-lg text-white">Focus Timer</h3>
-                <button onclick="confirmRemove('widget-timer')" class="text-gray-600 hover:text-red-400"><i class="fa-solid fa-xmark"></i></button>
+                <button onclick="confirmRemove('widget-timer')" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="flex bg-black/30 rounded-lg p-1 mb-6">
-                <button onclick="manualSwitchMode(true)" id="tab-work" class="flex-1 py-1.5 text-xs font-bold rounded accent-bg text-black">Study</button>
-                <button onclick="manualSwitchMode(false)" id="tab-break" class="flex-1 py-1.5 text-xs font-bold rounded text-cma-muted hover:text-white">Break</button>
+                <button onclick="manualSwitchMode(true)" id="tab-work" class="flex-1 py-1.5 text-xs font-bold rounded accent-bg text-black transition-all duration-300">Study</button>
+                <button onclick="manualSwitchMode(false)" id="tab-break" class="flex-1 py-1.5 text-xs font-bold rounded text-cma-muted hover:text-white transition-all duration-300">Break</button>
             </div>
             <div class="text-center mb-6">
-                <div class="text-6xl font-mono font-bold tabular-nums text-white" id="timer-display">25:00</div>
+                <div class="text-6xl font-mono font-bold tabular-nums text-white transition-colors duration-300" id="timer-display">25:00</div>
                 <div id="timer-status" class="text-xs text-cma-muted mt-2">Ready?</div>
             </div>
             <div class="flex gap-3">
-                <button id="start-btn" onclick="toggleTimer()" class="flex-1 accent-bg font-bold py-3 rounded-lg hover:opacity-90 shadow-lg text-black">Start</button>
-                <button onclick="resetTimer()" class="px-4 rounded-lg border border-gray-600 hover:bg-gray-700 text-gray-300 transition-colors" title="Reset Timer"><i class="fa-solid fa-rotate-left"></i></button>
+                <button id="start-btn" onclick="toggleTimer()" class="flex-1 accent-bg font-bold py-3 rounded-lg hover:opacity-90 shadow-lg text-black transition-all active:scale-95">Start</button>
+                <button onclick="resetTimer()" class="px-4 rounded-lg border border-gray-600 hover:bg-gray-700 text-gray-300 transition-all hover:rotate-[-10deg]" title="Reset Timer"><i class="fa-solid fa-rotate-left"></i></button>
             </div>
         </div>
 
@@ -272,25 +456,25 @@
                 <h3 class="font-bold text-lg"><i class="fa-solid fa-list-check text-green-400 mr-2"></i> Daily Goals</h3>
                 <div class="flex gap-2">
                     <span class="text-xs text-cma-muted mt-1" id="daily-progress">0/0</span>
-                    <button onclick="confirmRemove('widget-goals')" class="text-gray-600 hover:text-red-400"><i class="fa-solid fa-xmark"></i></button>
+                    <button onclick="confirmRemove('widget-goals')" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
                 </div>
             </div>
             <div class="flex gap-2 mb-4">
-                <input type="text" id="new-goal-input" placeholder="Add task..." class="flex-1 bg-black/30 border border-white/10 rounded px-3 py-2 text-sm focus:border-white/30 outline-none text-white">
-                <button onclick="addGoal()" class="bg-white/10 hover:bg-white/20 px-3 rounded text-white"><i class="fa-solid fa-plus"></i></button>
+                <input type="text" id="new-goal-input" placeholder="Add task..." class="flex-1 bg-black/30 border border-white/10 rounded px-3 py-2 text-sm focus:border-white/30 outline-none text-white placeholder-gray-500">
+                <button onclick="addGoal()" class="bg-white/10 hover:bg-white/20 px-3 rounded text-white active:scale-90"><i class="fa-solid fa-plus"></i></button>
             </div>
             <ul id="goals-list" class="flex-1 overflow-y-auto pr-1 space-y-2"></ul>
         </div>
 
         <!-- 3. MILESTONES -->
-        <div id="widget-milestones" class="draggable-item glass-panel rounded-2xl p-6 flex flex-col h-[200px]" draggable="true" ondragstart="drag(event)">
+        <div id="widget-milestones" class="draggable-item glass-panel rounded-2xl p-6 flex flex-col h-[350px]" draggable="true" ondragstart="drag(event)">
              <div class="flex justify-between items-center mb-4">
                 <h3 class="font-bold text-lg"><i class="fa-solid fa-flag text-purple-400 mr-2"></i> Milestones</h3>
-                <button onclick="confirmRemove('widget-milestones')" class="text-gray-600 hover:text-red-400"><i class="fa-solid fa-xmark"></i></button>
+                <button onclick="confirmRemove('widget-milestones')" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="flex gap-2 mb-2">
-                <input type="text" id="new-milestone-input" placeholder="Weekly target..." class="flex-1 bg-black/30 border border-white/10 rounded px-2 py-1 text-sm outline-none text-white">
-                <button onclick="addMilestone()" class="bg-purple-500/20 text-purple-300 px-2 rounded text-xs border border-purple-500/30">Add</button>
+                <input type="text" id="new-milestone-input" placeholder="Weekly target..." class="flex-1 bg-black/30 border border-white/10 rounded px-2 py-1 text-sm outline-none text-white placeholder-gray-500">
+                <button onclick="addMilestone()" class="bg-purple-500/20 text-purple-300 px-2 rounded text-xs border border-purple-500/30 hover:bg-purple-500/40 active:scale-95">Add</button>
             </div>
             <div id="milestone-list" class="space-y-1 overflow-y-auto pr-1"></div>
         </div>
@@ -300,19 +484,19 @@
             <div class="flex justify-between items-center mb-4">
                 <h3 class="font-bold text-lg"><i class="fa-solid fa-glass-water text-blue-400 mr-2"></i> Hydration</h3>
                 <div class="flex gap-3">
-                    <button onclick="toggleWaterReminder()" class="transition-colors hover:text-white" title="Toggle Alert">
+                    <button onclick="toggleWaterReminder()" class="transition-colors hover:text-white p-1" title="Toggle Alert">
                         <i id="water-bell" class="fa-solid fa-bell-slash text-gray-500"></i>
                     </button>
-                    <button onclick="confirmRemove('widget-water')" class="text-gray-600 hover:text-red-400"><i class="fa-solid fa-xmark"></i></button>
+                    <button onclick="confirmRemove('widget-water')" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
                 </div>
             </div>
             <div class="flex items-center gap-4">
-                <button onclick="addWater()" id="water-btn" class="border border-blue-500/50 bg-blue-900/20 p-3 rounded-xl hover:bg-blue-900/40 transition-all">
+                <button onclick="addWater()" id="water-btn" class="border border-blue-500/50 bg-blue-900/20 p-3 rounded-xl hover:bg-blue-900/40 transition-all active:scale-90 active:bg-blue-800">
                     <i class="fa-solid fa-glass-water text-2xl text-blue-400"></i>
                 </button>
                 <div class="flex-1">
                     <div class="flex justify-between text-sm mb-1 font-bold text-white"><span id="water-count">0</span>/8 glasses</div>
-                    <div class="w-full bg-gray-700 rounded-full h-2"><div id="water-bar" class="bg-blue-500 h-2 rounded-full transition-all" style="width: 0%"></div></div>
+                    <div class="w-full bg-gray-700 rounded-full h-2 overflow-hidden"><div id="water-bar" class="bg-blue-500 h-2 rounded-full transition-all duration-500 ease-out" style="width: 0%"></div></div>
                 </div>
             </div>
         </div>
@@ -321,33 +505,33 @@
         <div id="widget-calc" class="draggable-item glass-panel rounded-2xl p-5" draggable="true" ondragstart="drag(event)">
             <div class="flex justify-between items-center mb-3">
                 <h3 class="font-bold text-lg"><i class="fa-solid fa-calculator accent-text mr-2"></i> Sci-Calc</h3>
-                <button onclick="confirmRemove('widget-calc')" class="text-gray-600 hover:text-red-400"><i class="fa-solid fa-xmark"></i></button>
+                <button onclick="confirmRemove('widget-calc')" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div class="bg-black/30 p-2 rounded mb-2 text-right font-mono text-xl text-accent-primary h-10" id="calc-display">0</div>
+            <div class="bg-black/30 p-2 rounded mb-2 text-right font-mono text-xl text-accent-primary h-10 tracking-widest" id="calc-display">0</div>
             <div class="grid grid-cols-5 gap-1.5 text-xs">
-                <button onclick="calcInput('sin(')" class="p-2 bg-white/5 rounded text-blue-300">sin</button>
-                <button onclick="calcInput('cos(')" class="p-2 bg-white/5 rounded text-blue-300">cos</button>
-                <button onclick="calcInput('tan(')" class="p-2 bg-white/5 rounded text-blue-300">tan</button>
-                <button onclick="calcInput('log(')" class="p-2 bg-white/5 rounded text-blue-300">log</button>
-                <button onclick="calcClear()" class="p-2 bg-red-900/50 text-red-200 rounded font-bold">AC</button>
-                <button onclick="calcInput('7')" class="p-2 bg-white/10 rounded text-white">7</button>
-                <button onclick="calcInput('8')" class="p-2 bg-white/10 rounded text-white">8</button>
-                <button onclick="calcInput('9')" class="p-2 bg-white/10 rounded text-white">9</button>
-                <button onclick="calcDelete()" class="p-2 bg-white/10 rounded text-gray-300">Del</button>
-                <button onclick="calcInput('/')" class="p-2 bg-white/5 rounded accent-text">÷</button>
-                <button onclick="calcInput('4')" class="p-2 bg-white/10 rounded text-white">4</button>
-                <button onclick="calcInput('5')" class="p-2 bg-white/10 rounded text-white">5</button>
-                <button onclick="calcInput('6')" class="p-2 bg-white/10 rounded text-white">6</button>
-                <button onclick="calcInput('*')" class="p-2 bg-white/5 rounded accent-text">×</button>
-                <button onclick="calcInput('-')" class="p-2 bg-white/5 rounded accent-text">-</button>
-                <button onclick="calcInput('1')" class="p-2 bg-white/10 rounded text-white">1</button>
-                <button onclick="calcInput('2')" class="p-2 bg-white/10 rounded text-white">2</button>
-                <button onclick="calcInput('3')" class="p-2 bg-white/10 rounded text-white">3</button>
-                <button onclick="calcInput('sqrt(')" class="p-2 bg-white/5 rounded text-blue-300">√</button>
-                <button onclick="calcInput('+')" class="p-2 bg-white/5 rounded accent-text">+</button>
-                <button onclick="calcInput('0')" class="col-span-2 p-2 bg-white/10 rounded text-white">0</button>
-                <button onclick="calcInput('.')" class="p-2 bg-white/10 rounded text-white">.</button>
-                <button onclick="calcResult()" class="col-span-2 p-2 accent-bg rounded font-bold text-black">=</button>
+                <button onclick="calcInput('sin(')" class="p-2 bg-white/5 rounded text-blue-300 hover:bg-white/10">sin</button>
+                <button onclick="calcInput('cos(')" class="p-2 bg-white/5 rounded text-blue-300 hover:bg-white/10">cos</button>
+                <button onclick="calcInput('tan(')" class="p-2 bg-white/5 rounded text-blue-300 hover:bg-white/10">tan</button>
+                <button onclick="calcInput('log(')" class="p-2 bg-white/5 rounded text-blue-300 hover:bg-white/10">log</button>
+                <button onclick="calcClear()" class="p-2 bg-red-900/50 text-red-200 rounded font-bold hover:bg-red-800/50">AC</button>
+                <button onclick="calcInput('7')" class="p-2 bg-white/10 rounded text-white hover:bg-white/20">7</button>
+                <button onclick="calcInput('8')" class="p-2 bg-white/10 rounded text-white hover:bg-white/20">8</button>
+                <button onclick="calcInput('9')" class="p-2 bg-white/10 rounded text-white hover:bg-white/20">9</button>
+                <button onclick="calcDelete()" class="p-2 bg-white/10 rounded text-gray-300 hover:bg-white/20">Del</button>
+                <button onclick="calcInput('/')" class="p-2 bg-white/5 rounded accent-text hover:bg-white/10">÷</button>
+                <button onclick="calcInput('4')" class="p-2 bg-white/10 rounded text-white hover:bg-white/20">4</button>
+                <button onclick="calcInput('5')" class="p-2 bg-white/10 rounded text-white hover:bg-white/20">5</button>
+                <button onclick="calcInput('6')" class="p-2 bg-white/10 rounded text-white hover:bg-white/20">6</button>
+                <button onclick="calcInput('*')" class="p-2 bg-white/5 rounded accent-text hover:bg-white/10">×</button>
+                <button onclick="calcInput('-')" class="p-2 bg-white/5 rounded accent-text hover:bg-white/10">-</button>
+                <button onclick="calcInput('1')" class="p-2 bg-white/10 rounded text-white hover:bg-white/20">1</button>
+                <button onclick="calcInput('2')" class="p-2 bg-white/10 rounded text-white hover:bg-white/20">2</button>
+                <button onclick="calcInput('3')" class="p-2 bg-white/10 rounded text-white hover:bg-white/20">3</button>
+                <button onclick="calcInput('sqrt(')" class="p-2 bg-white/5 rounded text-blue-300 hover:bg-white/10">√</button>
+                <button onclick="calcInput('+')" class="p-2 bg-white/5 rounded accent-text hover:bg-white/10">+</button>
+                <button onclick="calcInput('0')" class="col-span-2 p-2 bg-white/10 rounded text-white hover:bg-white/20">0</button>
+                <button onclick="calcInput('.')" class="p-2 bg-white/10 rounded text-white hover:bg-white/20">.</button>
+                <button onclick="calcResult()" class="col-span-2 p-2 accent-bg rounded font-bold text-black hover:opacity-90">=</button>
             </div>
         </div>
 
@@ -356,14 +540,14 @@
             <div class="flex justify-between items-center mb-4">
                 <h3 class="font-bold text-lg"><i class="fa-solid fa-note-sticky text-pink-400 mr-2"></i> Notes</h3>
                 <div class="flex gap-2">
-                    <button onclick="clearNotes()" class="text-xs text-cma-muted hover:text-white">Clear</button>
-                    <button onclick="confirmRemove('widget-notes')" class="text-gray-600 hover:text-red-400"><i class="fa-solid fa-xmark"></i></button>
+                    <button onclick="clearNotes()" class="text-xs text-cma-muted hover:text-white px-2 py-1 rounded hover:bg-white/5">Clear</button>
+                    <button onclick="confirmRemove('widget-notes')" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
                 </div>
             </div>
-            <textarea id="note-input" rows="2" placeholder="Quick note..." class="w-full bg-black/30 border border-white/10 rounded p-2 text-sm focus:border-white/30 outline-none resize-none mb-2 text-white"></textarea>
+            <textarea id="note-input" rows="2" placeholder="Quick note..." class="w-full bg-black/30 border border-white/10 rounded p-2 text-sm focus:border-white/30 outline-none resize-none mb-2 text-white placeholder-gray-500"></textarea>
             <div class="flex gap-2 mb-2">
                 <input type="datetime-local" id="note-time" class="bg-gray-800 text-xs rounded border border-gray-700 px-2 flex-1 text-white">
-                <button onclick="addNote()" class="bg-pink-900/40 text-pink-200 text-xs py-1 px-3 rounded border border-pink-700 hover:bg-pink-900">Save</button>
+                <button onclick="addNote()" class="bg-pink-900/40 text-pink-200 text-xs py-1 px-3 rounded border border-pink-700 hover:bg-pink-900 active:scale-95 transition-transform">Save</button>
             </div>
             <div id="notes-list" class="flex-1 overflow-y-auto space-y-2 pr-1"></div>
         </div>
@@ -372,20 +556,20 @@
         <div id="widget-breathing" class="draggable-item glass-panel rounded-2xl p-6 flex flex-col items-center" draggable="true" ondragstart="drag(event)">
             <div class="w-full flex justify-between items-center mb-4">
                 <h3 class="font-bold text-lg"><i class="fa-solid fa-lungs accent-text mr-2"></i> Breathe</h3>
-                <button onclick="confirmRemove('widget-breathing')" class="text-gray-600 hover:text-red-400"><i class="fa-solid fa-xmark"></i></button>
+                <button onclick="confirmRemove('widget-breathing')" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="relative w-32 h-32 flex items-center justify-center mb-4">
                 <div id="breath-circle" class="breathing-circle absolute"></div>
                 <span id="breath-text" class="text-xs font-bold relative z-10 text-center text-white">Ready?</span>
             </div>
-            <button onclick="toggleBreathing()" id="breath-btn" class="text-xs border border-white/20 hover:bg-white/10 px-4 py-2 rounded-full transition-colors text-white">Start</button>
+            <button onclick="toggleBreathing()" id="breath-btn" class="text-xs border border-white/20 hover:bg-white/10 px-4 py-2 rounded-full transition-all text-white active:scale-95">Start</button>
         </div>
 
         <!-- 8. CALENDAR -->
         <div id="widget-calendar" class="draggable-item glass-panel rounded-2xl p-6" draggable="true" ondragstart="drag(event)">
             <div class="flex justify-between items-center mb-4">
                 <h3 class="font-bold text-lg text-white"><i class="fa-regular fa-calendar accent-text mr-2"></i> <span id="cal-month-year"></span></h3>
-                <button onclick="confirmRemove('widget-calendar')" class="text-gray-600 hover:text-red-400"><i class="fa-solid fa-xmark"></i></button>
+                <button onclick="confirmRemove('widget-calendar')" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="grid grid-cols-7 gap-1 text-center text-xs mb-2 text-cma-muted">
                 <div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
@@ -397,17 +581,17 @@
         <div id="widget-exam" class="draggable-item glass-panel rounded-2xl p-6" draggable="true" ondragstart="drag(event)">
             <div class="flex justify-between items-center mb-4">
                 <h3 class="font-bold text-lg text-white"><i class="fa-solid fa-hourglass-half accent-text mr-2"></i> Exam Day</h3>
-                <button onclick="confirmRemove('widget-exam')" class="text-gray-600 hover:text-red-400"><i class="fa-solid fa-xmark"></i></button>
+                <button onclick="confirmRemove('widget-exam')" class="text-gray-600 hover:text-red-400 p-1"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div id="exam-setup" class="flex flex-col gap-2">
-                <input type="date" id="exam-date-input" class="bg-gray-800 text-white p-2 rounded text-sm">
-                <button onclick="setExamDate()" class="accent-bg text-black font-bold py-1 rounded text-sm">Start Countdown</button>
+                <input type="date" id="exam-date-input" class="bg-gray-800 text-white p-2 rounded text-sm outline-none focus:border-white">
+                <button onclick="setExamDate()" class="accent-bg text-black font-bold py-1 rounded text-sm hover:opacity-90 active:scale-95 transition-transform">Start Countdown</button>
             </div>
             <div id="exam-display" class="hidden text-center">
                 <div class="grid grid-cols-3 gap-2 mb-2">
-                    <div class="bg-white/5 rounded p-2"><div id="exam-d" class="text-xl font-bold accent-text">0</div><div class="text-[10px] text-gray-400">Days</div></div>
-                    <div class="bg-white/5 rounded p-2"><div id="exam-h" class="text-xl font-bold text-white">0</div><div class="text-[10px] text-gray-400">Hrs</div></div>
-                    <div class="bg-white/5 rounded p-2"><div id="exam-m" class="text-xl font-bold text-white">0</div><div class="text-[10px] text-gray-400">Mins</div></div>
+                    <div class="bg-white/5 rounded p-2 hover:bg-white/10 transition-colors"><div id="exam-d" class="text-xl font-bold accent-text">0</div><div class="text-[10px] text-gray-400">Days</div></div>
+                    <div class="bg-white/5 rounded p-2 hover:bg-white/10 transition-colors"><div id="exam-h" class="text-xl font-bold text-white">0</div><div class="text-[10px] text-gray-400">Hrs</div></div>
+                    <div class="bg-white/5 rounded p-2 hover:bg-white/10 transition-colors"><div id="exam-m" class="text-xl font-bold text-white">0</div><div class="text-[10px] text-gray-400">Mins</div></div>
                 </div>
                 <button onclick="resetExamDate()" class="text-xs text-cma-muted underline hover:text-white">Edit Date</button>
             </div>
@@ -447,6 +631,41 @@
             "Don't stop until you're proud, {name}."
         ];
 
+        const EMOJIS = ['🚀', '💡', '🔥', '🎯', '🦁', '📚', '🎓', '⭐', '⚡', '🏆'];
+        
+        // Dynamic Notification Messages
+        const TIMER_START_MSGS = [
+            "Focus Mode: ON. You got this!",
+            "Time to build your future, {name}.",
+            "Deep work session starting now.",
+            "Distractions off. Success on.",
+            "Let's crush this study session!"
+        ];
+        
+        const TIMER_END_MSGS = [
+            "Great session! Take a well-deserved break.",
+            "Session complete. Your brain thanks you!",
+            "Progress unlocked. Rest up, {name}.",
+            "Time to recharge. Good work!",
+            "One step closer to CMA. Relax now."
+        ];
+        
+        const GOAL_COMPLETE_MSGS = [
+            "Goal crushed! Amazing work.",
+            "One less thing to worry about. Nice!",
+            "Momentum is building, {name}!",
+            "Checkmate. Task complete.",
+            "Excellent work! Keep the streak alive."
+        ];
+        
+        const NOTE_SAVED_MSGS = [
+            "Note secured.",
+            "Idea captured!",
+            "Written down. safe and sound.",
+            "Saved for later review.",
+            "Memory banked."
+        ];
+
         let state = {
             username: "", theme: "default",
             layout: JSON.parse(JSON.stringify(DEFAULT_LAYOUT)),
@@ -478,6 +697,7 @@
             setInterval(waterReminderCheck, 60000);
             setInterval(updateExamCountdown, 60000);
             displayRandomQuote();
+            changeHeaderIcon(); // Initial random icon
 
             // Initial check for permissions button state
             checkNotificationStatus();
@@ -502,6 +722,20 @@
                 if(!state.layout.col1) state.layout = JSON.parse(JSON.stringify(DEFAULT_LAYOUT));
                 if(state.water.date !== new Date().toDateString()) { state.water.count = 0; state.water.date = new Date().toDateString(); }
             }
+        }
+        
+        function changeHeaderIcon() {
+            const el = document.getElementById('dynamic-icon');
+            // Remove animation class to reset
+            el.classList.remove('icon-pop');
+            // Force reflow
+            void el.offsetWidth;
+            
+            const randomEmoji = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
+            el.innerText = randomEmoji;
+            
+            // Add animation class
+            el.classList.add('icon-pop');
         }
 
         // --- QUOTES ---
@@ -571,6 +805,10 @@
                 }
             }
         }
+        
+        function getRandomMsg(arr) {
+            return arr[Math.floor(Math.random() * arr.length)].replace(/{name}/g, state.username);
+        }
 
         // --- WIDGETS ---
         
@@ -596,8 +834,9 @@
             updateTimer(); 
             saveState();
             if(state.timer.run) {
-                const type = state.timer.mode === 'work' ? "Focus Session Started" : "Break Time Started";
-                const msg = state.timer.mode === 'work' ? `Let's crush it, ${state.username}!` : "Relax and recharge.";
+                changeHeaderIcon(); // Change icon on start
+                const type = state.timer.mode === 'work' ? "Focus Session" : "Break Time";
+                const msg = state.timer.mode === 'work' ? getRandomMsg(TIMER_START_MSGS) : "Relax and recharge.";
                 notify(type, msg);
             }
         }
@@ -614,8 +853,9 @@
                 if(state.timer.time <= 0) {
                     state.timer.time=0; state.timer.run=false;
                     const title = state.timer.mode==='work' ? "Session Complete!" : "Break Over!";
-                    const msg = state.timer.mode==='work' ? `Great job ${state.username}! Time for a break.` : `Let's get back to focus, ${state.username}.`;
+                    const msg = state.timer.mode==='work' ? getRandomMsg(TIMER_END_MSGS) : `Let's get back to focus, ${state.username}.`;
                     notify(title, msg);
+                    changeHeaderIcon(); // Change icon on complete
                     manualSwitchMode(state.timer.mode!=='work');
                 }
                 updateTimer(); saveState();
@@ -625,10 +865,10 @@
             const m=Math.floor(state.timer.time/60); const s=state.timer.time%60;
             document.getElementById('timer-display').innerText = `${m}:${s<10?'0':''}${s}`;
             document.getElementById('start-btn').innerText = state.timer.run ? "Pause" : "Start";
-            document.getElementById('start-btn').className = state.timer.run ? "flex-1 bg-red-600 font-bold py-3 rounded-lg text-white" : "flex-1 accent-bg font-bold py-3 rounded-lg text-black";
+            document.getElementById('start-btn').className = state.timer.run ? "flex-1 bg-red-600 font-bold py-3 rounded-lg text-white transition-all shadow-lg active:scale-95" : "flex-1 accent-bg font-bold py-3 rounded-lg text-black transition-all shadow-lg active:scale-95";
             
-            document.getElementById('tab-work').className = state.timer.mode==='work' ? "flex-1 py-1.5 text-xs font-bold rounded accent-bg text-black" : "flex-1 py-1.5 text-xs font-bold rounded text-cma-muted hover:text-white";
-            document.getElementById('tab-break').className = state.timer.mode!=='work' ? "flex-1 py-1.5 text-xs font-bold rounded bg-green-500 text-white" : "flex-1 py-1.5 text-xs font-bold rounded text-cma-muted hover:text-white";
+            document.getElementById('tab-work').className = state.timer.mode==='work' ? "flex-1 py-1.5 text-xs font-bold rounded accent-bg text-black transition-all" : "flex-1 py-1.5 text-xs font-bold rounded text-cma-muted hover:text-white transition-all";
+            document.getElementById('tab-break').className = state.timer.mode!=='work' ? "flex-1 py-1.5 text-xs font-bold rounded bg-green-500 text-white transition-all" : "flex-1 py-1.5 text-xs font-bold rounded text-cma-muted hover:text-white transition-all";
         }
 
         // Water
@@ -671,36 +911,44 @@
         }
 
         // Goals
-        function addGoal() { const i=document.getElementById('new-goal-input'); if(i.value.trim()){ state.goals.push({id:Date.now(), text:i.value.trim(), completed:false}); i.value=''; saveState(); renderGoals(); } }
+        function addGoal() { const i=document.getElementById('new-goal-input'); if(i.value.trim()){ state.goals.push({id:Date.now(), text:i.value.trim(), completed:false}); i.value=''; saveState(); renderGoals(true); } }
         function toggleGoal(id) { 
             const g=state.goals.find(x=>x.id===id); 
             if(g){ 
                 g.completed=!g.completed; 
-                saveState(); renderGoals(); 
-                if(g.completed) notify("Goal Complete", `Excellent work ${state.username}! One step closer.`);
+                saveState(); renderGoals(false); 
+                if(g.completed) {
+                    notify("Goal Complete", getRandomMsg(GOAL_COMPLETE_MSGS));
+                    changeHeaderIcon();
+                }
             } 
         }
-        function renderGoals() { 
+        function renderGoals(animate = false) { 
             document.getElementById('daily-progress').innerText = `${state.goals.filter(x=>x.completed).length}/${state.goals.length}`;
-            document.getElementById('goals-list').innerHTML = state.goals.map(g=>`<li class="flex items-center p-2 rounded hover:bg-white/5 group"><input type="checkbox" ${g.completed?'checked':''} onchange="toggleGoal(${g.id})" class="mr-2 accent-green-400 cursor-pointer"><span class="${g.completed?'line-through text-gray-500':'text-gray-300'} text-sm flex-1 cursor-pointer" onclick="toggleGoal(${g.id})">${g.text}</span><button onclick="state.goals=state.goals.filter(x=>x.id!==${g.id});saveState();renderGoals()" class="text-gray-600 hover:text-red-400 hidden group-hover:block"><i class="fa-solid fa-trash-can"></i></button></li>`).join('');
+            // Removed 'list-item-enter' from this loop to prevent flicker on toggle
+            // Only add animation if it's a new add (simplified here by removing it from re-renders to fix user issue)
+            document.getElementById('goals-list').innerHTML = state.goals.map(g=>`<li class="flex items-center p-2 rounded hover:bg-white/5 group"><input type="checkbox" ${g.completed?'checked':''} onchange="toggleGoal(${g.id})" class="mr-2 accent-green-400 cursor-pointer transform transition-transform duration-200 hover:scale-110"><span class="${g.completed?'line-through text-gray-500':'text-gray-300'} text-sm flex-1 cursor-pointer transition-colors" onclick="toggleGoal(${g.id})">${g.text}</span><button onclick="state.goals=state.goals.filter(x=>x.id!==${g.id});saveState();renderGoals()" class="text-gray-600 hover:text-red-400 hidden group-hover:block transition-colors"><i class="fa-solid fa-trash-can"></i></button></li>`).join('');
         }
 
         // Milestones
         function addMilestone() { const i=document.getElementById('new-milestone-input'); if(i.value.trim()){ state.milestones.push({id:Date.now(), text:i.value.trim()}); i.value=''; saveState(); renderMilestones(); notify("Milestone Set", "Target locked. Go get it!"); } }
-        function renderMilestones() { document.getElementById('milestone-list').innerHTML = state.milestones.map(m=>`<div class="bg-white/5 p-2 rounded text-sm flex justify-between group mb-1"><span><i class="fa-solid fa-flag text-purple-400 mr-2"></i>${m.text}</span><button onclick="state.milestones=state.milestones.filter(x=>x.id!==${m.id});saveState();renderMilestones()" class="text-gray-600 hover:text-red-400 hidden group-hover:block"><i class="fa-solid fa-trash-can"></i></button></div>`).join(''); }
+        function renderMilestones() { 
+            // Removed 'list-item-enter' class to prevent flicker of existing items during add/delete events
+            document.getElementById('milestone-list').innerHTML = state.milestones.map(m=>`<div class="bg-white/5 p-2 rounded text-sm flex justify-between group mb-1 hover:bg-white/10 transition-colors"><span><i class="fa-solid fa-flag text-purple-400 mr-2"></i>${m.text}</span><button onclick="state.milestones=state.milestones.filter(x=>x.id!==${m.id});saveState();renderMilestones()" class="text-gray-600 hover:text-red-400 hidden group-hover:block transition-colors"><i class="fa-solid fa-trash-can"></i></button></div>`).join(''); 
+        }
 
         // Notes
         function addNote() {
             const txt = document.getElementById('note-input'); const tm = document.getElementById('note-time');
-            if(txt.value.trim()){ state.notes.push({id:Date.now(), text:txt.value.trim(), time:tm.value, notified:false}); txt.value=''; tm.value=''; saveState(); renderNotes(); notify("Note Saved", "Note secured."); }
+            if(txt.value.trim()){ state.notes.push({id:Date.now(), text:txt.value.trim(), time:tm.value, notified:false}); txt.value=''; tm.value=''; saveState(); renderNotes(); notify("Note Saved", getRandomMsg(NOTE_SAVED_MSGS)); }
         }
         function renderNotes() {
             document.getElementById('notes-list').innerHTML = state.notes.map(n => {
                 const t = n.time ? new Date(n.time).toLocaleString([],{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
-                return `<div class="bg-white/5 p-2 rounded text-sm relative group mb-2 border-l-2 border-pink-400">
+                return `<div class="bg-white/5 p-2 rounded text-sm relative group mb-2 border-l-2 border-pink-400 hover:bg-white/10 transition-colors">
                     <div class="pr-5 break-words text-gray-200">${n.text}</div>
                     ${t ? `<div class="text-xs text-pink-300 mt-1"><i class="fa-regular fa-clock"></i> ${t}</div>` : ''}
-                    <button onclick="deleteNote(${n.id})" class="absolute top-1 right-1 text-gray-500 hover:text-red-400 hidden group-hover:block"><i class="fa-solid fa-trash-can"></i></button>
+                    <button onclick="deleteNote(${n.id})" class="absolute top-1 right-1 text-gray-500 hover:text-red-400 hidden group-hover:block transition-colors"><i class="fa-solid fa-trash-can"></i></button>
                 </div>`;
             }).join('');
         }
@@ -727,8 +975,8 @@
             const inactive = WIDGET_INFO.filter(w => !active.includes(w.id));
             if(inactive.length === 0) list.innerHTML = '<div class="text-sm text-gray-500 text-center italic">All widgets active</div>';
             inactive.forEach(w => {
-                const div = document.createElement('div'); div.className = "flex justify-between items-center p-3 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10";
-                div.innerHTML = `<div class="flex items-center gap-3"><i class="fa-solid ${w.icon} accent-text"></i><span class="text-sm font-bold text-gray-200">${w.name}</span></div><button onclick="addWidget('${w.id}')" class="text-green-400 hover:text-green-300"><i class="fa-solid fa-plus-circle"></i></button>`;
+                const div = document.createElement('div'); div.className = "flex justify-between items-center p-3 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition-colors";
+                div.innerHTML = `<div class="flex items-center gap-3"><i class="fa-solid ${w.icon} accent-text"></i><span class="text-sm font-bold text-gray-200">${w.name}</span></div><button onclick="addWidget('${w.id}')" class="text-green-400 hover:text-green-300 transition-colors active:scale-110"><i class="fa-solid fa-plus-circle"></i></button>`;
                 list.appendChild(div);
             });
         }
@@ -773,7 +1021,7 @@
             const days = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate(); const start = new Date(now.getFullYear(), now.getMonth(), 1).getDay();
             const grid = document.getElementById('cal-grid'); grid.innerHTML = '';
             for(let i=0; i<start; i++) grid.innerHTML += `<div></div>`;
-            for(let i=1; i<=days; i++) grid.innerHTML += `<div class="p-1 rounded ${i===now.getDate()?'accent-bg font-bold text-cma-dark':'hover:bg-white/10'}">${i}</div>`;
+            for(let i=1; i<=days; i++) grid.innerHTML += `<div class="p-1 rounded ${i===now.getDate()?'accent-bg font-bold text-cma-dark':'hover:bg-white/10'} transition-colors">${i}</div>`;
         }
         function checkExamWidget() { if(state.examDate) { document.getElementById('exam-setup').classList.add('hidden'); document.getElementById('exam-display').classList.remove('hidden'); updateExamCountdown(); } else { document.getElementById('exam-setup').classList.remove('hidden'); document.getElementById('exam-display').classList.add('hidden'); } }
         function setExamDate() { const d = document.getElementById('exam-date-input').value; if(d) { state.examDate = d; saveState(); checkExamWidget(); } }
