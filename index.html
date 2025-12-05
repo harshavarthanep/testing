@@ -68,7 +68,7 @@
         .draggable-item:active { cursor: grabbing; transform: scale(0.99); }
 
         /* Theme Active State */
-        .theme-item.active { background: rgba(255, 255, 255, 0.15); border-left: 3px solid var(--accent-primary); padding-left: 12px; font-weight: bold; }
+        .theme-item.active { background: rgba(255, 255, 255, 0.2) !important; border-left: 4px solid var(--accent-primary); padding-left: 14px; font-weight: 700; box-shadow: inset 20px 0 30px -10px rgba(0,0,0,0.3); }
 
         /* Emoji Icon Styles */
         .premium-icon {
@@ -203,20 +203,20 @@
                 <!-- Clickable Theme Menu -->
                 <div class="relative">
                     <button onclick="toggleThemeMenu(event); audio.playClick();" class="text-cma-muted hover:text-white p-2 rounded-lg hover:bg-white/5"><i class="fa-solid fa-palette"></i></button>
-                    <!-- Optimized Menu: Max height, overflow, wider width for mobile readability -->
-                    <div id="theme-menu" class="absolute right-0 mt-2 w-72 md:w-64 glass-panel rounded-xl p-3 hidden z-[100] transform origin-top-right transition-all duration-200 max-h-[70vh] overflow-y-auto overscroll-contain shadow-2xl border border-white/10 md:fixed md:top-16 md:right-10 fixed top-20 right-4">
+                    <!-- Optimized Menu: Absolute positioning works better for mobile flow here than fixed coordinates -->
+                    <div id="theme-menu" class="absolute right-0 top-full mt-2 w-64 glass-panel rounded-xl p-3 hidden z-[100] transform origin-top-right transition-all duration-200 max-h-[60vh] overflow-y-auto overscroll-contain shadow-2xl border border-white/10 md:fixed md:top-16 md:right-10">
                         <div class="text-[10px] uppercase tracking-widest text-gray-500 font-bold px-2 py-2 mb-1">Study Mode</div>
-                        <button onclick="setTheme('default')" data-id="default" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-amber-300 mb-1">Deep Focus</button>
-                        <button onclick="setTheme('midnight')" data-id="midnight" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-gray-300 mb-1">Night Owl</button>
-                        <button onclick="setTheme('coffee')" data-id="coffee" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-[#d4a373] mb-1">Espresso Flow</button>
-                        <button onclick="setTheme('cyberpunk')" data-id="cyberpunk" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-[#22d3ee] mb-1">Cyber Sprint</button>
+                        <button onclick="setTheme('default')" data-id="default" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-amber-300 mb-2 transition-all">Deep Focus</button>
+                        <button onclick="setTheme('midnight')" data-id="midnight" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-gray-300 mb-2 transition-all">Night Owl</button>
+                        <button onclick="setTheme('coffee')" data-id="coffee" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-[#d4a373] mb-2 transition-all">Espresso Flow</button>
+                        <button onclick="setTheme('cyberpunk')" data-id="cyberpunk" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-[#22d3ee] mb-2 transition-all">Cyber Sprint</button>
                         
                         <div class="border-t border-white/10 my-2"></div>
                         <div class="text-[10px] uppercase tracking-widest text-gray-500 font-bold px-2 py-2 mb-1">OS Inspired</div>
-                        <button onclick="setTheme('glass')" data-id="glass" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-indigo-300 mb-1 flex justify-between">iOS Glass <i class="fa-brands fa-apple opacity-50"></i></button>
-                        <button onclick="setTheme('oneui')" data-id="oneui" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-violet-300 mb-1 flex justify-between">OneUI <i class="fa-brands fa-android opacity-50"></i></button>
-                        <button onclick="setTheme('oxygen')" data-id="oxygen" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-red-300 mb-1">OxygenOS</button>
-                        <button onclick="setTheme('windows')" data-id="windows" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-blue-300 mb-1 flex justify-between">Windows 11 <i class="fa-brands fa-windows opacity-50"></i></button>
+                        <button onclick="setTheme('glass')" data-id="glass" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-indigo-300 mb-2 flex justify-between transition-all">iOS Glass <i class="fa-brands fa-apple opacity-50"></i></button>
+                        <button onclick="setTheme('oneui')" data-id="oneui" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-violet-300 mb-2 flex justify-between transition-all">OneUI <i class="fa-brands fa-android opacity-50"></i></button>
+                        <button onclick="setTheme('oxygen')" data-id="oxygen" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-red-300 mb-2 transition-all">OxygenOS</button>
+                        <button onclick="setTheme('windows')" data-id="windows" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-blue-300 mb-2 flex justify-between transition-all">Windows 11 <i class="fa-brands fa-windows opacity-50"></i></button>
                     </div>
                 </div>
                 
@@ -515,7 +515,7 @@
                     }
                 }
             },
-            playTone: function(freq, type, duration, vol = 0.3) { // Default volume increased to 0.3
+            playTone: function(freq, type, duration, vol = 0.6) { // Boosted default volume
                 if (!state.soundEnabled) return;
                 this.init();
                 if (!this.ctx) return;
@@ -530,7 +530,7 @@
                 osc.start();
                 osc.stop(this.ctx.currentTime + duration);
             },
-            playClick: function() { this.playTone(800, 'sine', 0.1, 0.2); }, // Louder click
+            playClick: function() { this.playTone(800, 'sine', 0.1, 0.5); }, // Boosted click
             playSuccess: function() { 
                 if (!state.soundEnabled) return;
                 this.init();
@@ -541,7 +541,7 @@
                     const gain = this.ctx.createGain();
                     osc.frequency.value = f;
                     osc.type = 'triangle';
-                    gain.gain.setValueAtTime(0.2, now + i*0.1); // Increased music volume
+                    gain.gain.setValueAtTime(0.5, now + i*0.1); // Boosted success chime
                     gain.gain.exponentialRampToValueAtTime(0.001, now + i*0.1 + 0.3);
                     osc.connect(gain);
                     gain.connect(this.ctx.destination);
@@ -554,6 +554,7 @@
                 this.init();
                 if (!this.ctx) return;
                 const now = this.ctx.currentTime;
+                // Triple Beep Alarm Sequence
                 for(let i=0; i<3; i++) {
                     const osc = this.ctx.createOscillator();
                     const gain = this.ctx.createGain();
@@ -561,7 +562,7 @@
                     osc.type = 'square';
                     osc.frequency.setValueAtTime(880, start);
                     osc.frequency.exponentialRampToValueAtTime(440, start + 0.2);
-                    gain.gain.setValueAtTime(0.3, start); // Louder alert
+                    gain.gain.setValueAtTime(0.6, start); // Boosted alert
                     gain.gain.exponentialRampToValueAtTime(0.001, start + 0.2);
                     osc.connect(gain);
                     gain.connect(this.ctx.destination);
@@ -569,8 +570,8 @@
                     osc.stop(start + 0.25);
                 }
             },
-            playDrop: function() { this.playTone(150, 'sine', 0.2, 0.4); },
-            playDelete: function() { this.playTone(200, 'sawtooth', 0.1, 0.2); },
+            playDrop: function() { this.playTone(150, 'sine', 0.2, 0.7); },
+            playDelete: function() { this.playTone(200, 'sawtooth', 0.1, 0.4); },
             speak: function(text) {
                 if (!state.voiceEnabled) return;
                 if ('speechSynthesis' in window) {
@@ -581,7 +582,7 @@
                     if (preferred) utterance.voice = preferred;
                     utterance.rate = 1.1; 
                     utterance.pitch = 1.1;
-                    utterance.volume = 1.0; // Max volume for speech
+                    utterance.volume = 1.0; 
                     window.speechSynthesis.speak(utterance);
                 }
             }
@@ -674,6 +675,7 @@
 
         function applyTheme(t) {
             document.body.setAttribute('data-theme', t);
+            // Highlight selected theme
             document.querySelectorAll('.theme-item').forEach(btn => {
                 if(btn.dataset.id === t) {
                     btn.classList.add('active');
@@ -688,7 +690,7 @@
             state.soundEnabled = !state.soundEnabled;
             saveState();
             updateSoundIcon();
-            if(state.soundEnabled) audio.playSuccess(); 
+            if(state.soundEnabled) audio.playSuccess(); // Feedback
         }
         
         function updateSoundIcon() {
