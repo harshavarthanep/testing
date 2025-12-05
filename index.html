@@ -204,7 +204,7 @@
                 <div class="relative">
                     <button onclick="toggleThemeMenu(event); audio.playClick();" class="text-cma-muted hover:text-white p-2 rounded-lg hover:bg-white/5"><i class="fa-solid fa-palette"></i></button>
                     <!-- Optimized Menu: Max height, overflow, wider width for mobile readability -->
-                    <div id="theme-menu" class="absolute right-0 mt-2 w-72 glass-panel rounded-xl p-3 hidden z-[60] transform origin-top-right transition-all duration-200 max-h-[60vh] overflow-y-auto overscroll-contain shadow-2xl border border-white/10">
+                    <div id="theme-menu" class="absolute right-0 mt-2 w-72 md:w-64 glass-panel rounded-xl p-3 hidden z-[100] transform origin-top-right transition-all duration-200 max-h-[70vh] overflow-y-auto overscroll-contain shadow-2xl border border-white/10 md:fixed md:top-16 md:right-10 fixed top-20 right-4">
                         <div class="text-[10px] uppercase tracking-widest text-gray-500 font-bold px-2 py-2 mb-1">Study Mode</div>
                         <button onclick="setTheme('default')" data-id="default" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-amber-300 mb-1">Deep Focus</button>
                         <button onclick="setTheme('midnight')" data-id="midnight" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-gray-300 mb-1">Night Owl</button>
@@ -503,7 +503,7 @@
 
         let pendingRemoveId = null;
 
-        // --- AUDIO ENGINE (Pure JS Synthesizer - No External Files) ---
+        // --- AUDIO ENGINE (Pure JS Synthesizer - Increased Volume) ---
         const audio = {
             ctx: null,
             init: function() {
@@ -515,7 +515,7 @@
                     }
                 }
             },
-            playTone: function(freq, type, duration, vol = 0.1) {
+            playTone: function(freq, type, duration, vol = 0.3) { // Default volume increased to 0.3
                 if (!state.soundEnabled) return;
                 this.init();
                 if (!this.ctx) return;
@@ -530,18 +530,18 @@
                 osc.start();
                 osc.stop(this.ctx.currentTime + duration);
             },
-            playClick: function() { this.playTone(800, 'sine', 0.1, 0.05); },
+            playClick: function() { this.playTone(800, 'sine', 0.1, 0.2); }, // Louder click
             playSuccess: function() { 
                 if (!state.soundEnabled) return;
                 this.init();
                 if (!this.ctx) return;
                 const now = this.ctx.currentTime;
-                [523.25, 659.25, 783.99, 1046.50].forEach((f, i) => { // C Major Arpeggio
+                [523.25, 659.25, 783.99, 1046.50].forEach((f, i) => { 
                     const osc = this.ctx.createOscillator();
                     const gain = this.ctx.createGain();
                     osc.frequency.value = f;
                     osc.type = 'triangle';
-                    gain.gain.setValueAtTime(0.05, now + i*0.1);
+                    gain.gain.setValueAtTime(0.2, now + i*0.1); // Increased music volume
                     gain.gain.exponentialRampToValueAtTime(0.001, now + i*0.1 + 0.3);
                     osc.connect(gain);
                     gain.connect(this.ctx.destination);
@@ -554,7 +554,6 @@
                 this.init();
                 if (!this.ctx) return;
                 const now = this.ctx.currentTime;
-                // Triple Beep Alarm Sequence
                 for(let i=0; i<3; i++) {
                     const osc = this.ctx.createOscillator();
                     const gain = this.ctx.createGain();
@@ -562,7 +561,7 @@
                     osc.type = 'square';
                     osc.frequency.setValueAtTime(880, start);
                     osc.frequency.exponentialRampToValueAtTime(440, start + 0.2);
-                    gain.gain.setValueAtTime(0.1, start);
+                    gain.gain.setValueAtTime(0.3, start); // Louder alert
                     gain.gain.exponentialRampToValueAtTime(0.001, start + 0.2);
                     osc.connect(gain);
                     gain.connect(this.ctx.destination);
@@ -570,20 +569,19 @@
                     osc.stop(start + 0.25);
                 }
             },
-            playDrop: function() { this.playTone(150, 'sine', 0.2, 0.1); },
-            playDelete: function() { this.playTone(200, 'sawtooth', 0.1, 0.05); },
+            playDrop: function() { this.playTone(150, 'sine', 0.2, 0.4); },
+            playDelete: function() { this.playTone(200, 'sawtooth', 0.1, 0.2); },
             speak: function(text) {
                 if (!state.voiceEnabled) return;
                 if ('speechSynthesis' in window) {
-                    // Cancel current speech to avoid queue buildup
                     window.speechSynthesis.cancel();
                     const utterance = new SpeechSynthesisUtterance(text);
-                    // Try to select a good voice
                     const voices = window.speechSynthesis.getVoices();
                     const preferred = voices.find(v => v.name.includes('Google US English') || v.name.includes('Samantha'));
                     if (preferred) utterance.voice = preferred;
-                    utterance.rate = 1.1; // Slightly energetic
+                    utterance.rate = 1.1; 
                     utterance.pitch = 1.1;
+                    utterance.volume = 1.0; // Max volume for speech
                     window.speechSynthesis.speak(utterance);
                 }
             }
@@ -624,7 +622,7 @@
                     menu.classList.add('hidden');
                 }
                 
-                // Initialize Audio Context on first interaction to bypass browser autoplay policies
+                // Initialize Audio Context on first interaction
                 if(audio.ctx && audio.ctx.state === 'suspended') {
                     audio.ctx.resume();
                 }
@@ -676,7 +674,6 @@
 
         function applyTheme(t) {
             document.body.setAttribute('data-theme', t);
-            // Highlight selected theme
             document.querySelectorAll('.theme-item').forEach(btn => {
                 if(btn.dataset.id === t) {
                     btn.classList.add('active');
@@ -691,7 +688,7 @@
             state.soundEnabled = !state.soundEnabled;
             saveState();
             updateSoundIcon();
-            if(state.soundEnabled) audio.playSuccess(); // Feedback
+            if(state.soundEnabled) audio.playSuccess(); 
         }
         
         function updateSoundIcon() {
@@ -805,8 +802,8 @@
                     state.timer.time=0; state.timer.run=false;
                     const msg = state.timer.mode==='work' ? getRandomMsg(TIMER_END_MSGS) : `Back to work, ${state.username}.`;
                     notify("Time's Up!", msg); 
-                    audio.playAlert(); // Distinct Alarm
-                    audio.speak(msg); // Speak message
+                    audio.playAlert(); 
+                    audio.speak(msg);
                     manualSwitchMode(state.timer.mode!=='work');
                 }
                 updateTimer(); saveState();
@@ -857,7 +854,7 @@
                 if(m === 0) {
                      const msg = `Hey ${state.username}, time for a hydration break.`;
                      notify("Drink Water!", msg);
-                     audio.playAlert(); // Distinct Alarm
+                     audio.playAlert();
                      audio.speak(msg);
                 }
             }
@@ -929,7 +926,7 @@
                 if(n.time && !n.notified && now >= new Date(n.time)) {
                     const msg = `Hey ${state.username}, don't forget: ${n.text}`;
                     notify("Reminder", msg);
-                    audio.playAlert(); // Distinct Alarm
+                    audio.playAlert();
                     audio.speak(msg);
                     n.notified = true; chg = true;
                 }
