@@ -29,279 +29,85 @@
         }
 
         /* --- STUDY THEMES --- */
-
-        /* Night Owl (Midnight) */
-        [data-theme="midnight"] { 
-            --bg-main: #000000; 
-            --bg-card: rgba(20, 20, 20, 0.85); 
-            --accent-primary: #e2e8f0; 
-            --bg-image: none;
-        }
-
-        /* Espresso Flow (Coffee) */
-        [data-theme="coffee"] { 
-            --bg-main: #271c19; 
-            --bg-card: rgba(60, 42, 33, 0.85); 
-            --accent-primary: #d4a373; 
-            --bg-image: linear-gradient(to bottom, #271c19, #1a1210);
-        }
-
-        /* Cyber Sprint (Cyberpunk) */
-        [data-theme="cyberpunk"] { 
-            --bg-main: #09090b; 
-            --bg-card: rgba(24, 24, 27, 0.9); 
-            --accent-primary: #22d3ee; 
-            --bg-image: repeating-linear-gradient(45deg, #09090b 25%, transparent 25%, transparent 75%, #09090b 75%, #09090b), 
-                        repeating-linear-gradient(45deg, #09090b 25%, #09090b 25%, #09090b 75%, #09090b 75%, #09090b);
-        }
+        [data-theme="midnight"] { --bg-main: #000000; --bg-card: rgba(20, 20, 20, 0.85); --accent-primary: #e2e8f0; --bg-image: none; }
+        [data-theme="coffee"] { --bg-main: #271c19; --bg-card: rgba(60, 42, 33, 0.85); --accent-primary: #d4a373; --bg-image: linear-gradient(to bottom, #271c19, #1a1210); }
+        [data-theme="cyberpunk"] { --bg-main: #09090b; --bg-card: rgba(24, 24, 27, 0.9); --accent-primary: #22d3ee; --bg-image: repeating-linear-gradient(45deg, #09090b 25%, transparent 25%, transparent 75%, #09090b 75%, #09090b), repeating-linear-gradient(45deg, #09090b 25%, #09090b 25%, #09090b 75%, #09090b 75%, #09090b); }
 
         /* --- OS INSPIRED THEMES --- */
-
-        /* Crystal Clarity (iOS 16 Glass - Refined) */
         [data-theme="glass"] { 
-            --bg-main: #000000;
-            --bg-card: rgba(255, 255, 255, 0.08); 
-            --accent-primary: #e0e7ff; 
-            --bg-image: radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
-                        radial-gradient(at 50% 0%, hsla(225,39%,10%,1) 0, transparent 50%), 
-                        radial-gradient(at 100% 0%, hsla(339,20%,10%,1) 0, transparent 50%);
+            --bg-main: #000000; --bg-card: rgba(255, 255, 255, 0.08); --accent-primary: #e0e7ff; 
+            --bg-image: radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), radial-gradient(at 50% 0%, hsla(225,39%,10%,1) 0, transparent 50%), radial-gradient(at 100% 0%, hsla(339,20%,10%,1) 0, transparent 50%);
             --border-color: rgba(255, 255, 255, 0.12);
         }
-        [data-theme="glass"] .glass-panel {
-            backdrop-filter: blur(40px) saturate(140%);
-            -webkit-backdrop-filter: blur(40px) saturate(140%);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+        [data-theme="glass"] .glass-panel { backdrop-filter: blur(40px) saturate(140%); -webkit-backdrop-filter: blur(40px) saturate(140%); border: 1px solid rgba(255, 255, 255, 0.1); }
 
-        /* OneUI (Samsung Style - AMOLED) */
-        [data-theme="oneui"] {
-            --bg-main: #000000;
-            --bg-card: #1c1c1e; /* Deep gray, not transparent */
-            --accent-primary: #a78bfa; /* Soft Violet */
-            --text-main: #ffffff;
-            --text-muted: #9ca3af;
-            --border-color: #2c2c2e;
-            --bg-image: none;
-        }
-        [data-theme="oneui"] .glass-panel {
-            border-radius: 24px; /* More rounded */
-            backdrop-filter: none;
-            box-shadow: none;
-        }
-        [data-theme="oneui"] button {
-            border-radius: 999px; /* Pill shapes */
-        }
+        [data-theme="oneui"] { --bg-main: #000000; --bg-card: #1c1c1e; --accent-primary: #a78bfa; --text-main: #ffffff; --border-color: #2c2c2e; --bg-image: none; }
+        [data-theme="oneui"] .glass-panel { border-radius: 24px; backdrop-filter: none; }
+        [data-theme="oneui"] button { border-radius: 999px; }
 
-        /* Oxygen (OnePlus Style - Zen Mode) */
-        [data-theme="oxygen"] {
-            --bg-main: #1f1f1f;
-            --bg-card: #282828;
-            --accent-primary: #f87171; /* Oxygen Red/Pink */
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-            --border-color: rgba(255,255,255,0.05);
-            --bg-image: linear-gradient(to bottom right, #1f1f1f 50%, #2a2a2a 100%);
-        }
+        [data-theme="oxygen"] { --bg-main: #1f1f1f; --bg-card: #282828; --accent-primary: #f87171; --text-main: #f3f4f6; --border-color: rgba(255,255,255,0.05); --bg-image: linear-gradient(to bottom right, #1f1f1f 50%, #2a2a2a 100%); }
 
-        /* Windows 11 (Mica/Bloom) */
-        [data-theme="windows"] {
-            --bg-main: #202020;
-            --bg-card: rgba(255, 255, 255, 0.04); /* Mica effect simulation */
-            --accent-primary: #60cdff; /* Win 11 Blue */
-            --text-main: #ffffff;
-            --border-color: rgba(255,255,255,0.08);
-            /* Abstract Bloom Background */
-            --bg-image: radial-gradient(circle at 50% 10%, rgba(96, 205, 255, 0.15), transparent 60%),
-                        radial-gradient(circle at 90% 90%, rgba(139, 92, 246, 0.15), transparent 50%);
-        }
-
+        [data-theme="windows"] { --bg-main: #202020; --bg-card: rgba(255, 255, 255, 0.04); --accent-primary: #60cdff; --text-main: #ffffff; --border-color: rgba(255,255,255,0.08); --bg-image: radial-gradient(circle at 50% 10%, rgba(96, 205, 255, 0.15), transparent 60%), radial-gradient(circle at 90% 90%, rgba(139, 92, 246, 0.15), transparent 50%); }
 
         /* --- BASE STYLES --- */
-        body {
-            background-color: var(--bg-main);
-            background-image: var(--bg-image);
-            background-attachment: fixed;
-            background-size: cover;
-            color: var(--text-main);
-            transition: background 0.5s ease;
-        }
-
+        body { background-color: var(--bg-main); background-image: var(--bg-image); background-attachment: fixed; background-size: cover; color: var(--text-main); transition: background 0.5s ease; }
+        
         .glass-panel {
-            background: var(--bg-card);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            background: var(--bg-card); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        /* --- SATISFYING ANIMATIONS --- */
-        
-        /* Buttons: Press effect & brightness */
-        button {
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        button:hover {
-            filter: brightness(1.15);
-            transform: translateY(-1px);
-        }
-        button:active {
-            transform: scale(0.95) translateY(0);
-            filter: brightness(0.9);
-        }
+        /* Interactive Elements */
+        button { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
+        button:hover { filter: brightness(1.15); transform: translateY(-1px); }
+        button:active { transform: scale(0.95); filter: brightness(0.9); }
 
-        /* Widgets: Hover Lift (Optimized - Subtle) */
-        .draggable-item { 
-            cursor: grab; 
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-        }
-        .draggable-item:hover {
-            transform: translateY(-2px); 
-            box-shadow: 0 8px 24px -6px rgba(0,0,0,0.4); 
-            border-color: rgba(255,255,255,0.15);
-        }
-        .draggable-item:active { 
-            cursor: grabbing; 
-            transform: scale(0.99);
-        }
+        .draggable-item { cursor: grab; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .draggable-item:hover { transform: translateY(-2px); box-shadow: 0 8px 24px -6px rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.15); }
+        .draggable-item:active { cursor: grabbing; transform: scale(0.99); }
 
-        /* Inputs: Focus Glow */
-        input, textarea, select {
-            transition: all 0.2s ease;
-            border: 1px solid var(--border-color);
-        }
-        input:focus, textarea:focus {
-            transform: scale(1.005);
-            background: rgba(0,0,0,0.4);
-            border-color: var(--accent-primary);
-            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.05);
-        }
+        /* Theme Active State */
+        .theme-item.active { background: rgba(255, 255, 255, 0.15); border-left: 3px solid var(--accent-primary); padding-left: 12px; font-weight: bold; }
 
-        /* Checkbox Animation */
-        input[type="checkbox"] {
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        input[type="checkbox"]:checked {
-            transform: scale(1.1);
-        }
-
-        /* List Items Slide In */
-        .list-item-enter {
-            animation: slideIn 0.3s ease forwards;
-        }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(-10px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        /* Premium Emoji Icon Styles */
+        /* Emoji Icon Styles */
         .premium-icon {
-            background: rgba(255, 255, 255, 0.07);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid var(--accent-primary);
-            box-shadow: 0 0 15px -8px var(--accent-primary);
-            color: #fff; /* Ensure visibility on all backgrounds */
-            animation: float 6s ease-in-out infinite;
+            background: rgba(255, 255, 255, 0.07); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--accent-primary); box-shadow: 0 0 15px -8px var(--accent-primary);
+            color: #fff; animation: float 6s ease-in-out infinite;
         }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-4px); }
-        }
-        
-        /* Updated: Subtle Premium Pop */
-        .icon-pop {
-            animation: iconPop 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        @keyframes iconPop {
-            0% { transform: scale(0.95); filter: brightness(1); }
-            50% { transform: scale(1.05); filter: brightness(1.2); }
-            100% { transform: scale(1); filter: brightness(1); }
-        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+        .icon-pop { animation: iconPop 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        @keyframes iconPop { 0% { transform: scale(0.95); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
-        /* Theme Menu Active State */
-        .theme-active {
-            background: rgba(255,255,255,0.15) !important;
-            font-weight: bold;
-            border-left: 3px solid var(--accent-primary);
-        }
-
-        /* --- EXISTING STYLES --- */
-        .drop-zone { min-height: 150px; border-radius: 1rem; transition: background 0.3s; }
-        .drop-zone.drag-over { background: rgba(255,255,255,0.05); border: 2px dashed var(--accent-primary); transform: scale(1.01); }
-
-        /* Animation */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fade-in { animation: fadeIn 0.6s ease-out forwards; }
-        
-        .modal { transition: opacity 0.2s ease-in-out; opacity: 0; pointer-events: none; backdrop-filter: blur(5px); }
-        .modal.active { opacity: 1; pointer-events: auto; }
-
-        .gold-gradient-text {
-            background: linear-gradient(to right, var(--accent-primary), #fff, var(--accent-primary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            background-size: 200% auto;
-            animation: shine 5s linear infinite;
-        }
-        @keyframes shine { to { background-position: 200% center; } }
-
-        /* Sidebar Store */
-        .widget-sidebar {
-            position: fixed; right: -320px; top: 0; width: 300px; height: 100%;
-            background: var(--bg-card); backdrop-filter: blur(20px); z-index: 100;
-            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); border-left: 1px solid var(--border-color);
-            padding: 20px; overflow-y: auto;
-        }
-        .widget-sidebar.open { right: 0; box-shadow: -10px 0 30px rgba(0,0,0,0.5); }
-
-        /* Breathing Animation */
-        .breathing-circle {
-            width: 80px; height: 80px; border-radius: 50%; background: var(--accent-primary);
-            opacity: 0.2; transform: scale(0.8);
-            transition: all 0.5s ease;
-        }
-        .breathing-active { animation: breathe 16s infinite ease-in-out; }
-        @keyframes breathe {
-            0%, 100% { transform: scale(0.5); opacity: 0.2; }
-            25% { transform: scale(1.2); opacity: 0.8; }
-            50% { transform: scale(1.2); opacity: 0.8; }
-            75% { transform: scale(0.5); opacity: 0.2; }
-        }
-        
-        /* Blinking Water Alert */
-        .water-blink { animation: pulse-gold 2s infinite; }
-        @keyframes pulse-gold {
-            0% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(251, 191, 36, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); }
-        }
-
-        /* Utilities */
+        /* Standard Classes */
         .accent-text { color: var(--accent-primary); }
         .accent-bg { background-color: var(--accent-primary); color: #0f172a; }
-        .accent-border { border-color: var(--accent-primary); }
+        .drop-zone { min-height: 150px; border-radius: 1rem; transition: background 0.3s; }
+        .drop-zone.drag-over { background: rgba(255,255,255,0.05); border: 2px dashed var(--accent-primary); transform: scale(1.01); }
+        .modal { transition: opacity 0.2s ease-in-out; opacity: 0; pointer-events: none; backdrop-filter: blur(5px); }
+        .modal.active { opacity: 1; pointer-events: auto; }
+        .gold-gradient-text { background: linear-gradient(to right, var(--accent-primary), #fff, var(--accent-primary)); -webkit-background-clip: text; background-clip: text; color: transparent; background-size: 200% auto; animation: shine 5s linear infinite; }
+        @keyframes shine { to { background-position: 200% center; } }
+        
+        .widget-sidebar { position: fixed; right: -320px; top: 0; width: 300px; height: 100%; background: var(--bg-card); backdrop-filter: blur(20px); z-index: 100; transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); border-left: 1px solid var(--border-color); padding: 20px; overflow-y: auto; }
+        .widget-sidebar.open { right: 0; box-shadow: -10px 0 30px rgba(0,0,0,0.5); }
+        
+        .breathing-circle { width: 80px; height: 80px; border-radius: 50%; background: var(--accent-primary); opacity: 0.2; transform: scale(0.8); transition: all 0.5s ease; }
+        .breathing-active { animation: breathe 16s infinite ease-in-out; }
+        @keyframes breathe { 0%, 100% { transform: scale(0.5); opacity: 0.2; } 25% { transform: scale(1.2); opacity: 0.8; } 50% { transform: scale(1.2); opacity: 0.8; } 75% { transform: scale(0.5); opacity: 0.2; } }
+        
+        .water-blink { animation: pulse-gold 2s infinite; }
+        @keyframes pulse-gold { 0% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(251, 191, 36, 0); } 100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); } }
+        
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.4); }
     </style>
 
     <script>
         tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        cma: { gold: 'var(--accent-primary)', muted: 'var(--text-muted)' }
-                    },
-                    fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] }
-                }
-            }
+            theme: { extend: { colors: { cma: { gold: 'var(--accent-primary)', muted: 'var(--text-muted)' } }, fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] } } }
         }
     </script>
 </head>
@@ -383,7 +189,7 @@
                 </div>
             </div>
             
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2 md:gap-3">
                 <!-- Sound Toggle -->
                 <button onclick="toggleSound()" id="sound-btn" class="text-gray-400 hover:text-white p-2 rounded-lg hover:bg-white/5 transition-colors" title="Toggle Sound FX">
                     <i class="fa-solid fa-volume-high"></i>
@@ -397,27 +203,28 @@
                 <!-- Clickable Theme Menu -->
                 <div class="relative">
                     <button onclick="toggleThemeMenu(event); audio.playClick();" class="text-cma-muted hover:text-white p-2 rounded-lg hover:bg-white/5"><i class="fa-solid fa-palette"></i></button>
-                    <!-- Optimized Menu: Max height, overflow, and z-index for mobile -->
-                    <div id="theme-menu" class="absolute right-0 mt-2 w-56 glass-panel rounded-xl p-2 hidden z-[60] transform origin-top-right transition-all duration-200 max-h-[60vh] overflow-y-auto overscroll-contain">
-                        <div class="text-[10px] uppercase tracking-widest text-cma-muted px-2 py-1 mb-1">Study Mode</div>
-                        <button onclick="setTheme('default')" data-theme-id="default" class="block w-full text-left px-3 py-3 text-xs rounded hover:bg-white/10 text-amber-200 transition-colors flex justify-between items-center mb-1">Deep Focus</button>
-                        <button onclick="setTheme('midnight')" data-theme-id="midnight" class="block w-full text-left px-3 py-3 text-xs rounded hover:bg-white/10 text-gray-300 transition-colors flex justify-between items-center mb-1">Night Owl</button>
-                        <button onclick="setTheme('coffee')" data-theme-id="coffee" class="block w-full text-left px-3 py-3 text-xs rounded hover:bg-white/10 text-[#d4a373] transition-colors flex justify-between items-center mb-1">Espresso Flow</button>
-                        <button onclick="setTheme('cyberpunk')" data-theme-id="cyberpunk" class="block w-full text-left px-3 py-3 text-xs rounded hover:bg-white/10 text-[#22d3ee] transition-colors flex justify-between items-center mb-1">Cyber Sprint</button>
+                    <!-- Optimized Menu: Max height, overflow, wider width for mobile readability -->
+                    <div id="theme-menu" class="absolute right-0 mt-2 w-72 glass-panel rounded-xl p-3 hidden z-[60] transform origin-top-right transition-all duration-200 max-h-[60vh] overflow-y-auto overscroll-contain shadow-2xl border border-white/10">
+                        <div class="text-[10px] uppercase tracking-widest text-gray-500 font-bold px-2 py-2 mb-1">Study Mode</div>
+                        <button onclick="setTheme('default')" data-id="default" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-amber-300 mb-1">Deep Focus</button>
+                        <button onclick="setTheme('midnight')" data-id="midnight" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-gray-300 mb-1">Night Owl</button>
+                        <button onclick="setTheme('coffee')" data-id="coffee" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-[#d4a373] mb-1">Espresso Flow</button>
+                        <button onclick="setTheme('cyberpunk')" data-id="cyberpunk" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-[#22d3ee] mb-1">Cyber Sprint</button>
                         
-                        <div class="border-t border-white/10 my-1"></div>
-                        <div class="text-[10px] uppercase tracking-widest text-cma-muted px-2 py-1 mb-1">OS Inspired</div>
-                        <button onclick="setTheme('glass')" data-theme-id="glass" class="block w-full text-left px-3 py-3 text-xs rounded hover:bg-white/10 text-indigo-200 transition-colors flex justify-between items-center mb-1">iOS Glass <i class="fa-brands fa-apple"></i></button>
-                        <button onclick="setTheme('oneui')" data-theme-id="oneui" class="block w-full text-left px-3 py-3 text-xs rounded hover:bg-white/10 text-violet-200 transition-colors flex justify-between items-center mb-1">OneUI <i class="fa-brands fa-android"></i></button>
-                        <button onclick="setTheme('oxygen')" data-theme-id="oxygen" class="block w-full text-left px-3 py-3 text-xs rounded hover:bg-white/10 text-red-200 transition-colors flex justify-between items-center mb-1">OxygenOS</button>
-                        <button onclick="setTheme('windows')" data-theme-id="windows" class="block w-full text-left px-3 py-3 text-xs rounded hover:bg-white/10 text-blue-200 transition-colors flex justify-between items-center">Windows 11 <i class="fa-brands fa-windows"></i></button>
+                        <div class="border-t border-white/10 my-2"></div>
+                        <div class="text-[10px] uppercase tracking-widest text-gray-500 font-bold px-2 py-2 mb-1">OS Inspired</div>
+                        <button onclick="setTheme('glass')" data-id="glass" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-indigo-300 mb-1 flex justify-between">iOS Glass <i class="fa-brands fa-apple opacity-50"></i></button>
+                        <button onclick="setTheme('oneui')" data-id="oneui" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-violet-300 mb-1 flex justify-between">OneUI <i class="fa-brands fa-android opacity-50"></i></button>
+                        <button onclick="setTheme('oxygen')" data-id="oxygen" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-red-300 mb-1">OxygenOS</button>
+                        <button onclick="setTheme('windows')" data-id="windows" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-blue-300 mb-1 flex justify-between">Windows 11 <i class="fa-brands fa-windows opacity-50"></i></button>
                     </div>
                 </div>
+                
                 <!-- Add Widget Btn -->
                 <button onclick="toggleSidebar(); audio.playClick();" class="accent-bg text-xs px-3 py-1.5 rounded-full font-bold shadow-lg hover:opacity-90 flex items-center gap-2 text-black transition-transform active:scale-95">
                     <i class="fa-solid fa-plus"></i> Widgets
                 </button>
-                <button onclick="requestNotificationPermission()" id="notif-btn" class="text-xs border border-white/20 px-3 py-1.5 rounded-full text-gray-300 hover:bg-white/10 flex items-center gap-2 transition-colors"><i class="fa-regular fa-bell"></i> Enable Alerts</button>
+                <button onclick="requestNotificationPermission()" id="notif-btn" class="text-xs border border-white/20 px-3 py-1.5 rounded-full text-gray-300 hover:bg-white/10 flex items-center gap-2 transition-colors"><i class="fa-regular fa-bell"></i> Alerts</button>
             </div>
         </div>
     </header>
@@ -700,11 +507,18 @@
         const audio = {
             ctx: null,
             init: function() {
-                if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                if (!this.ctx) {
+                    try {
+                        this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                    } catch(e) {
+                        console.error("Audio Context not supported");
+                    }
+                }
             },
             playTone: function(freq, type, duration, vol = 0.1) {
                 if (!state.soundEnabled) return;
                 this.init();
+                if (!this.ctx) return;
                 const osc = this.ctx.createOscillator();
                 const gain = this.ctx.createGain();
                 osc.type = type;
@@ -720,6 +534,7 @@
             playSuccess: function() { 
                 if (!state.soundEnabled) return;
                 this.init();
+                if (!this.ctx) return;
                 const now = this.ctx.currentTime;
                 [523.25, 659.25, 783.99, 1046.50].forEach((f, i) => { // C Major Arpeggio
                     const osc = this.ctx.createOscillator();
@@ -737,6 +552,7 @@
             playAlert: function() {
                 if (!state.soundEnabled) return;
                 this.init();
+                if (!this.ctx) return;
                 const now = this.ctx.currentTime;
                 // Triple Beep Alarm Sequence
                 for(let i=0; i<3; i++) {
@@ -807,6 +623,11 @@
                 if (!menu.classList.contains('hidden') && (!btn || !btn.querySelector('.fa-palette'))) {
                     menu.classList.add('hidden');
                 }
+                
+                // Initialize Audio Context on first interaction to bypass browser autoplay policies
+                if(audio.ctx && audio.ctx.state === 'suspended') {
+                    audio.ctx.resume();
+                }
             });
         });
 
@@ -856,16 +677,11 @@
         function applyTheme(t) {
             document.body.setAttribute('data-theme', t);
             // Highlight selected theme
-            document.querySelectorAll('#theme-menu button').forEach(btn => {
-                if(btn.dataset.themeId === t) {
-                    btn.classList.add('theme-active');
-                    if(!btn.querySelector('.check-icon')) {
-                        btn.innerHTML += ' <i class="fa-solid fa-check text-green-400 check-icon"></i>';
-                    }
+            document.querySelectorAll('.theme-item').forEach(btn => {
+                if(btn.dataset.id === t) {
+                    btn.classList.add('active');
                 } else {
-                    btn.classList.remove('theme-active');
-                    const icon = btn.querySelector('.check-icon');
-                    if(icon) icon.remove();
+                    btn.classList.remove('active');
                 }
             });
         }
@@ -888,7 +704,7 @@
             state.voiceEnabled = !state.voiceEnabled;
             saveState();
             updateVoiceIcon();
-            if(state.voiceEnabled) audio.speak(`Voice activated, ${state.username}. Let's get to work.`);
+            if(state.voiceEnabled) audio.speak(`Voice on.`);
         }
 
         function updateVoiceIcon() {
@@ -944,7 +760,8 @@
         // --- WIDGETS ---
         
         // Timer
-        function toggleSettingsModal() { document.getElementById('settings-modal').classList.toggle('active'); 
+        function toggleSettingsModal() { 
+            document.getElementById('settings-modal').classList.toggle('active'); 
             if(document.getElementById('settings-modal').classList.contains('active')) {
                 document.getElementById('setting-work').value = state.timer.work;
                 document.getElementById('setting-break').value = state.timer.break;
@@ -970,7 +787,7 @@
                 const msg = state.timer.mode === 'work' ? getRandomMsg(TIMER_START_MSGS) : "Relax and recharge.";
                 notify(type, msg);
                 audio.playSuccess();
-                if(state.timer.mode === 'work') audio.speak(`Starting focus session. ${msg}`);
+                if(state.timer.mode === 'work') audio.speak("Starting focus session.");
                 else audio.speak("Break started. Relax.");
             }
         }
@@ -986,10 +803,8 @@
                 state.timer.time -= delta; state.timer.last = now;
                 if(state.timer.time <= 0) {
                     state.timer.time=0; state.timer.run=false;
-                    const title = state.timer.mode==='work' ? "Session Complete!" : "Break Over!";
-                    const msg = state.timer.mode==='work' ? getRandomMsg(TIMER_END_MSGS) : `Let's get back to focus, ${state.username}.`;
-                    notify(title, msg);
-                    changeHeaderIcon();
+                    const msg = state.timer.mode==='work' ? getRandomMsg(TIMER_END_MSGS) : `Back to work, ${state.username}.`;
+                    notify("Time's Up!", msg); 
                     audio.playAlert(); // Distinct Alarm
                     audio.speak(msg); // Speak message
                     manualSwitchMode(state.timer.mode!=='work');
@@ -1049,7 +864,13 @@
         }
 
         // Goals
-        function addGoal() { const i=document.getElementById('new-goal-input'); if(i.value.trim()){ state.goals.push({id:Date.now(), text:i.value.trim(), completed:false}); i.value=''; saveState(); renderGoals(true); audio.playClick(); } }
+        function addGoal() { 
+            const i=document.getElementById('new-goal-input'); 
+            if(i.value.trim()){ 
+                state.goals.push({id:Date.now(), text:i.value.trim(), completed:false}); 
+                i.value=''; saveState(); renderGoals(true); audio.playClick(); 
+            } 
+        }
         function toggleGoal(id) { 
             const g=state.goals.find(x=>x.id===id); 
             if(g){ 
@@ -1071,7 +892,13 @@
         }
 
         // Milestones
-        function addMilestone() { const i=document.getElementById('new-milestone-input'); if(i.value.trim()){ state.milestones.push({id:Date.now(), text:i.value.trim()}); i.value=''; saveState(); renderMilestones(); notify("Milestone Set", "Target locked. Go get it!"); audio.playSuccess(); } }
+        function addMilestone() { 
+            const i=document.getElementById('new-milestone-input'); 
+            if(i.value.trim()){ 
+                state.milestones.push({id:Date.now(), text:i.value.trim()}); 
+                i.value=''; saveState(); renderMilestones(); notify("Milestone Set", "Target locked. Go get it!"); audio.playSuccess(); 
+            } 
+        }
         function renderMilestones() { 
             document.getElementById('milestone-list').innerHTML = state.milestones.map(m=>`<div class="bg-white/5 p-2 rounded text-sm flex justify-between group mb-1 hover:bg-white/10 transition-colors"><span><i class="fa-solid fa-flag text-purple-400 mr-2"></i>${m.text}</span><button onclick="state.milestones=state.milestones.filter(x=>x.id!==${m.id});saveState();renderMilestones();audio.playDelete()" class="text-gray-600 hover:text-red-400 hidden group-hover:block transition-colors"><i class="fa-solid fa-trash-can"></i></button></div>`).join(''); 
         }
@@ -1079,7 +906,11 @@
         // Notes
         function addNote() {
             const txt = document.getElementById('note-input'); const tm = document.getElementById('note-time');
-            if(txt.value.trim()){ state.notes.push({id:Date.now(), text:txt.value.trim(), time:tm.value, notified:false}); txt.value=''; tm.value=''; saveState(); renderNotes(); const msg = getRandomMsg(NOTE_SAVED_MSGS); notify("Note Saved", msg); audio.playClick(); audio.speak(msg); }
+            if(txt.value.trim()){ 
+                state.notes.push({id:Date.now(), text:txt.value.trim(), time:tm.value, notified:false}); 
+                txt.value=''; tm.value=''; saveState(); renderNotes(); 
+                const msg = getRandomMsg(NOTE_SAVED_MSGS); notify("Note Saved", msg); audio.playClick(); audio.speak(msg); 
+            }
         }
         function renderNotes() {
             document.getElementById('notes-list').innerHTML = state.notes.map(n => {
@@ -1138,9 +969,17 @@
         function toggleSidebar() { document.getElementById('widget-sidebar').classList.toggle('open'); document.getElementById('overlay').classList.toggle('hidden'); }
 
         // Utils
-        function saveNameAndStart() { const n = document.getElementById('username-input').value.trim(); if(n){ state.username=n; saveState(); document.getElementById('welcome-modal').classList.remove('active'); updateName(); audio.playSuccess(); audio.speak(`Welcome to your study space, ${n}.`); } }
+        function saveNameAndStart() { 
+            const n = document.getElementById('username-input').value.trim(); 
+            if(n){ 
+                state.username=n; saveState(); 
+                document.getElementById('welcome-modal').classList.remove('active'); 
+                updateName(); 
+                audio.playSuccess(); 
+                audio.speak(`Welcome to your study space, ${n}.`); 
+            } 
+        }
         function updateName() { document.getElementById('header-name').innerText = state.username; displayRandomQuote(); }
-        function applyTheme(t) { document.body.setAttribute('data-theme', t); }
         function allowDrop(ev) { ev.preventDefault(); ev.currentTarget.classList.add('drag-over'); }
         function drag(ev) { ev.dataTransfer.setData("text", ev.target.id); }
         function drop(ev) { ev.preventDefault(); const data = ev.dataTransfer.getData("text"); const zone = ev.currentTarget; document.querySelectorAll('.drag-over').forEach(el=>el.classList.remove('drag-over')); if(zone.classList.contains('drop-zone')) { zone.appendChild(document.getElementById(data)); saveLayoutState(); audio.playDrop(); } }
@@ -1155,7 +994,7 @@
             else { 
                 circle.classList.add('breathing-active'); btn.innerText="Stop"; 
                 let p=0; 
-                const phases = ["Inhale (4s)", "Hold (4s)", "Exhale (4s)", "Hold (4s)"];
+                const phases = ["Inhale", "Hold", "Exhale", "Hold"];
                 const cycle = () => { 
                     txt.innerText = phases[p]; 
                     if(state.soundEnabled) audio.playTone(200 + (p%2)*100, 'sine', 1, 0.05); // Subtle tone for breath phases
@@ -1163,7 +1002,7 @@
                 }; 
                 cycle(); 
                 breathInt = setInterval(cycle, 4000); 
-                audio.speak("Follow the breathing circle. Relax.");
+                audio.speak("Follow the breathing. Relax.");
             }
         }
         function calcInput(v) { 
