@@ -203,8 +203,8 @@
                 <!-- Clickable Theme Menu -->
                 <div class="relative">
                     <button onclick="toggleThemeMenu(event); audio.playClick();" class="text-cma-muted hover:text-white p-2 rounded-lg hover:bg-white/5"><i class="fa-solid fa-palette"></i></button>
-                    <!-- Optimized Menu: Absolute positioning works better for mobile flow here than fixed coordinates -->
-                    <div id="theme-menu" class="absolute right-0 top-full mt-2 w-64 glass-panel rounded-xl p-3 hidden z-[100] transform origin-top-right transition-all duration-200 max-h-[60vh] overflow-y-auto overscroll-contain shadow-2xl border border-white/10 md:fixed md:top-16 md:right-10">
+                    <!-- Optimized Menu: Fixed Positioning for perfect alignment on ALL devices -->
+                    <div id="theme-menu" class="fixed top-16 right-4 w-64 glass-panel rounded-xl p-3 hidden z-[100] transform origin-top-right transition-all duration-200 max-h-[60vh] overflow-y-auto overscroll-contain shadow-2xl border border-white/10 md:right-10">
                         <div class="text-[10px] uppercase tracking-widest text-gray-500 font-bold px-2 py-2 mb-1">Study Mode</div>
                         <button onclick="setTheme('default')" data-id="default" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-amber-300 mb-2 transition-all">Deep Focus</button>
                         <button onclick="setTheme('midnight')" data-id="midnight" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-gray-300 mb-2 transition-all">Night Owl</button>
@@ -515,7 +515,7 @@
                     }
                 }
             },
-            playTone: function(freq, type, duration, vol = 0.6) { // Boosted default volume
+            playTone: function(freq, type, duration, vol = 0.8) { // Boosted default volume
                 if (!state.soundEnabled) return;
                 this.init();
                 if (!this.ctx) return;
@@ -530,7 +530,7 @@
                 osc.start();
                 osc.stop(this.ctx.currentTime + duration);
             },
-            playClick: function() { this.playTone(800, 'sine', 0.1, 0.5); }, // Boosted click
+            playClick: function() { this.playTone(800, 'sine', 0.1, 0.7); }, // Boosted click
             playSuccess: function() { 
                 if (!state.soundEnabled) return;
                 this.init();
@@ -541,7 +541,7 @@
                     const gain = this.ctx.createGain();
                     osc.frequency.value = f;
                     osc.type = 'triangle';
-                    gain.gain.setValueAtTime(0.5, now + i*0.1); // Boosted success chime
+                    gain.gain.setValueAtTime(0.6, now + i*0.1); // Boosted success chime
                     gain.gain.exponentialRampToValueAtTime(0.001, now + i*0.1 + 0.3);
                     osc.connect(gain);
                     gain.connect(this.ctx.destination);
@@ -562,7 +562,7 @@
                     osc.type = 'square';
                     osc.frequency.setValueAtTime(880, start);
                     osc.frequency.exponentialRampToValueAtTime(440, start + 0.2);
-                    gain.gain.setValueAtTime(0.6, start); // Boosted alert
+                    gain.gain.setValueAtTime(0.8, start); // Boosted alert
                     gain.gain.exponentialRampToValueAtTime(0.001, start + 0.2);
                     osc.connect(gain);
                     gain.connect(this.ctx.destination);
@@ -570,8 +570,8 @@
                     osc.stop(start + 0.25);
                 }
             },
-            playDrop: function() { this.playTone(150, 'sine', 0.2, 0.7); },
-            playDelete: function() { this.playTone(200, 'sawtooth', 0.1, 0.4); },
+            playDrop: function() { this.playTone(150, 'sine', 0.2, 0.9); },
+            playDelete: function() { this.playTone(200, 'sawtooth', 0.1, 0.5); },
             speak: function(text) {
                 if (!state.voiceEnabled) return;
                 if ('speechSynthesis' in window) {
