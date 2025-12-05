@@ -155,6 +155,35 @@
         </div>
     </div>
 
+    <!-- Theme Selection Modal (New Unified Modal) -->
+    <div id="theme-modal" class="modal fixed inset-0 z-[120] flex items-center justify-center bg-black/70 backdrop-blur-sm">
+        <div class="glass-panel p-6 rounded-xl w-full max-w-sm mx-4 transform transition-all scale-100 max-h-[80vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4 sticky top-0 z-10 pb-2 border-b border-white/10">
+                <h3 class="text-xl font-serif font-bold accent-text"><i class="fa-solid fa-palette"></i> Study Themes</h3>
+                <button onclick="toggleThemeModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            
+            <div class="space-y-1">
+                <div class="text-[10px] uppercase tracking-widest text-gray-500 font-bold px-2 py-2 mb-1">Study Mode</div>
+                <button onclick="setTheme('default')" data-id="default" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-amber-300 mb-2 transition-all">Deep Focus</button>
+                <button onclick="setTheme('midnight')" data-id="midnight" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-gray-300 mb-2 transition-all">Night Owl</button>
+                <button onclick="setTheme('coffee')" data-id="coffee" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-[#d4a373] mb-2 transition-all">Espresso Flow</button>
+                <button onclick="setTheme('cyberpunk')" data-id="cyberpunk" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-[#22d3ee] mb-2 transition-all">Cyber Sprint</button>
+                
+                <div class="border-t border-white/10 my-3"></div>
+                <div class="text-[10px] uppercase tracking-widest text-gray-500 font-bold px-2 py-2 mb-1">OS Inspired</div>
+                <button onclick="setTheme('glass')" data-id="glass" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-indigo-300 mb-2 flex justify-between transition-all">iOS Glass <i class="fa-brands fa-apple opacity-50"></i></button>
+                <button onclick="setTheme('oneui')" data-id="oneui" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-violet-300 mb-2 flex justify-between transition-all">OneUI <i class="fa-brands fa-android opacity-50"></i></button>
+                <button onclick="setTheme('oxygen')" data-id="oxygen" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-red-300 mb-2 transition-all">OxygenOS</button>
+                <button onclick="setTheme('windows')" data-id="windows" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-blue-300 mb-2 flex justify-between transition-all">Windows 11 <i class="fa-brands fa-windows opacity-50"></i></button>
+            </div>
+            
+            <div class="mt-6 text-center">
+                 <button onclick="toggleThemeModal()" class="px-6 py-2 rounded-full border border-white/10 hover:bg-white/10 text-sm text-gray-400 hover:text-white transition-all">Close Menu</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Remove Confirmation -->
     <div id="remove-modal" class="modal fixed inset-0 z-[130] flex items-center justify-center bg-black/70 backdrop-blur-sm">
         <div class="glass-panel p-6 rounded-xl w-full max-w-sm mx-4 text-center border border-red-500/30">
@@ -200,55 +229,9 @@
                     <i class="fa-solid fa-headset"></i>
                 </button>
 
-                <!-- Clickable Theme Menu -->
+                <!-- Clickable Theme Modal Trigger -->
                 <div class="relative">
-                    <button onclick="toggleThemeMenu(event); audio.playClick();" class="text-cma-muted hover:text-white p-2 rounded-lg hover:bg-white/5"><i class="fa-solid fa-palette"></i></button>
-                    
-                    <!-- THEME MENU CONTAINER -->
-                    <div id="theme-menu" class="hidden z-[150]">
-                        <!-- MOBILE OVERLAY: Full screen blurred backdrop (Visible only on mobile) -->
-                        <!-- This mimics the Focus Timer modal background behavior -->
-                        <div class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center md:hidden" onclick="toggleThemeMenu(event)">
-                             <!-- MOBILE MENU CARD: Centered, Fixed, Scrollable -->
-                             <div class="w-[85%] max-w-xs max-h-[70vh] glass-panel rounded-xl p-4 overflow-y-auto overscroll-contain shadow-2xl border border-white/10" onclick="event.stopPropagation()">
-                                <div class="flex justify-between items-center mb-3 border-b border-white/10 pb-2">
-                                    <h3 class="font-bold text-white text-lg">Select Theme</h3>
-                                    <button onclick="toggleThemeMenu(event)" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
-                                </div>
-                                <!-- Mobile Content injected here via JS or duplicated for safety -->
-                                <div id="mobile-theme-list">
-                                    <!-- Theme items repeated for mobile structure -->
-                                    <div class="text-[10px] uppercase tracking-widest text-gray-500 font-bold px-2 py-2 mb-1">Study Mode</div>
-                                    <button onclick="setTheme('default')" data-id="default" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-amber-300 mb-2 transition-all">Deep Focus</button>
-                                    <button onclick="setTheme('midnight')" data-id="midnight" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-gray-300 mb-2 transition-all">Night Owl</button>
-                                    <button onclick="setTheme('coffee')" data-id="coffee" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-[#d4a373] mb-2 transition-all">Espresso Flow</button>
-                                    <button onclick="setTheme('cyberpunk')" data-id="cyberpunk" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-[#22d3ee] mb-2 transition-all">Cyber Sprint</button>
-                                    <div class="border-t border-white/10 my-2"></div>
-                                    <div class="text-[10px] uppercase tracking-widest text-gray-500 font-bold px-2 py-2 mb-1">OS Inspired</div>
-                                    <button onclick="setTheme('glass')" data-id="glass" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-indigo-300 mb-2 flex justify-between transition-all">iOS Glass <i class="fa-brands fa-apple opacity-50"></i></button>
-                                    <button onclick="setTheme('oneui')" data-id="oneui" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-violet-300 mb-2 flex justify-between transition-all">OneUI <i class="fa-brands fa-android opacity-50"></i></button>
-                                    <button onclick="setTheme('oxygen')" data-id="oxygen" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-red-300 mb-2 transition-all">OxygenOS</button>
-                                    <button onclick="setTheme('windows')" data-id="windows" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-blue-300 mb-2 flex justify-between transition-all">Windows 11 <i class="fa-brands fa-windows opacity-50"></i></button>
-                                </div>
-                             </div>
-                        </div>
-
-                        <!-- DESKTOP MENU: Absolute Dropdown (Hidden on Mobile) -->
-                        <div class="hidden md:block absolute right-0 top-full mt-2 w-64 glass-panel rounded-xl p-3 max-h-[60vh] overflow-y-auto overscroll-contain shadow-2xl border border-white/10">
-                             <div class="text-[10px] uppercase tracking-widest text-gray-500 font-bold px-2 py-2 mb-1">Study Mode</div>
-                             <button onclick="setTheme('default')" data-id="default" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-amber-300 mb-2 transition-all">Deep Focus</button>
-                             <button onclick="setTheme('midnight')" data-id="midnight" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-gray-300 mb-2 transition-all">Night Owl</button>
-                             <button onclick="setTheme('coffee')" data-id="coffee" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-[#d4a373] mb-2 transition-all">Espresso Flow</button>
-                             <button onclick="setTheme('cyberpunk')" data-id="cyberpunk" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-[#22d3ee] mb-2 transition-all">Cyber Sprint</button>
-                             
-                             <div class="border-t border-white/10 my-2"></div>
-                             <div class="text-[10px] uppercase tracking-widest text-gray-500 font-bold px-2 py-2 mb-1">OS Inspired</div>
-                             <button onclick="setTheme('glass')" data-id="glass" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-indigo-300 mb-2 flex justify-between transition-all">iOS Glass <i class="fa-brands fa-apple opacity-50"></i></button>
-                             <button onclick="setTheme('oneui')" data-id="oneui" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-violet-300 mb-2 flex justify-between transition-all">OneUI <i class="fa-brands fa-android opacity-50"></i></button>
-                             <button onclick="setTheme('oxygen')" data-id="oxygen" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-red-300 mb-2 transition-all">OxygenOS</button>
-                             <button onclick="setTheme('windows')" data-id="windows" class="theme-item block w-full text-left px-4 py-3 text-sm rounded-lg hover:bg-white/10 text-blue-300 mb-2 flex justify-between transition-all">Windows 11 <i class="fa-brands fa-windows opacity-50"></i></button>
-                        </div>
-                    </div>
+                    <button onclick="toggleThemeModal(); audio.playClick();" class="text-cma-muted hover:text-white p-2 rounded-lg hover:bg-white/5" title="Change Theme"><i class="fa-solid fa-palette"></i></button>
                 </div>
                 
                 <!-- Add Widget Btn -->
@@ -646,23 +629,12 @@
             // Initial check for permissions button state
             checkNotificationStatus();
             
-            // Click outside to close theme menu
+            // Initialize Audio Context on first interaction
             document.addEventListener('click', function(event) {
-                const menu = document.getElementById('theme-menu');
-                const btn = event.target.closest('button');
-                // On mobile, the overlay itself handles closing, so we check if the click is outside the mobile card too
-                if (!menu.classList.contains('hidden') && (!btn || !btn.querySelector('.fa-palette'))) {
-                     // Check if desktop: click outside closes it
-                     if(window.innerWidth >= 768) {
-                         menu.classList.add('hidden');
-                     }
-                }
-                
-                // Initialize Audio Context on first interaction
                 if(audio.ctx && audio.ctx.state === 'suspended') {
                     audio.ctx.resume();
                 }
-            });
+            }, {once:true});
         });
 
         // --- CORE ---
@@ -696,16 +668,16 @@
         }
 
         // --- THEME ---
-        function toggleThemeMenu(e) {
-            e.stopPropagation();
-            document.getElementById('theme-menu').classList.toggle('hidden');
+        function toggleThemeModal() {
+            document.getElementById('theme-modal').classList.toggle('active');
         }
         
         function setTheme(t) { 
             state.theme=t; 
             applyTheme(t); 
             saveState(); 
-            document.getElementById('theme-menu').classList.add('hidden');
+            // Close the modal
+            document.getElementById('theme-modal').classList.remove('active');
         }
 
         function applyTheme(t) {
